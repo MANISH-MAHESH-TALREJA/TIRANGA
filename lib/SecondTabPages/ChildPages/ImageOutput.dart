@@ -44,8 +44,8 @@ class _ImageOutputState extends State<ImageOutput>
         ),
       ),
       floatingActionButton: SpeedDial(
-        marginEnd: 20,
-        marginBottom: 20,
+        //marginEnd: 20,
+        //marginBottom: 20,
         icon: Icons.file_download,
         activeIcon: Icons.close,
         animatedIconTheme: IconThemeData(size: 22.0),

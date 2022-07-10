@@ -11,42 +11,38 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  shimmer: ^2.0.0
-  auto_animated: ^3.0.0
-  marquee_widget: ^1.0.0
-  toast: ^0.1.5
-  carousel_pro: ^1.0.0
-  flutter_html: ^0.11.1
-  modal_bottom_sheet: ^2.0.0
-  avatar_glow: ^2.0.1
-  url_launcher: ^6.0.3
-  wallpaper_manager: ^1.0.10
-  flutter_downloader:
-    git:
-      url: https://github.com/fluttercommunity/flutter_downloader.git
-      ref: embedding-v2
+  shimmer: ^2.0.0 #REMOVE THIS OR MIGRATE THIS TO NULL SAFETY
+  auto_animated: ^3.0.1
+  marquee_widget: ^1.2.0
+  toast: ^0.3.0
+  carousel_pro: ^1.0.0 #REMOVE THIS OR MIGRATE THIS TO NULL SAFETY
+  flutter_html: ^2.2.1
+  modal_bottom_sheet: ^2.1.0
+  avatar_glow: ^2.0.2
+  url_launcher: ^6.1.4
+  wallpaper_manager: ^1.0.10 #REMOVE THIS OR MIGRATE THIS TO NULL SAFETY
+  flutter_downloader: ^1.8.0+1
   animated_background: ^2.0.0
-  audioplayer: ^0.8.1
+  audioplayer: ^0.8.1 #REMOVE THIS OR MIGRATE THIS TO NULL SAFETY
   expandable: ^5.0.1
-  wc_flutter_share: ^0.4.0
-  infinite_cards: ^1.0.3
-  flip_card: ^0.5.0
-  better_player: ^0.0.66
-  animated_text_kit: ^3.1.0
-  giffy_dialog: ^1.8.0
-  cached_network_image: ^3.0.0
-  path_provider: ^2.0.1
-  http: ^0.13.3
-  firebase_messaging: ^9.1.4
-  rflutter_alert: ^2.0.2
-  permission_handler: ^7.1.0
-  flutter_speed_dial: ^3.0.5
+  wc_flutter_share: ^0.4.0 #DISCONTINUED PLUGIN - REMOVE THIS OR MIGRATE THIS TO NULL SAFETY
+  flip_card: ^0.6.0
+  better_player: ^0.0.83
+  animated_text_kit: ^4.2.2
+  giffy_dialog: ^1.8.0 #REMOVE THIS OR MIGRATE THIS TO NULL SAFETY
+  cached_network_image: ^3.2.1
+  path_provider: ^2.0.11
+  http: ^0.13.4
+  firebase_messaging: ^11.4.4
+  rflutter_alert: ^2.0.4
+  permission_handler: ^10.0.0
+  flutter_speed_dial: ^6.0.0
   bottom_navy_bar: ^6.0.0
-  flutter_cache_manager: ^3.0.2
-  in_app_update: ^2.0.0
-  connectivity: ^3.0.3
-  androidversion: ^0.0.2
-  contained_tab_bar_view: ^0.7.1
+  flutter_cache_manager: ^3.3.0
+  in_app_update: ^3.0.0
+  connectivity: ^3.0.6 #DISCONTINUED PLUGIN - REMOVE THIS OR MIGRATE THIS TO NULL SAFETY
+  androidversion: ^0.0.2 #REMOVE THIS OR MIGRATE THIS TO NULL SAFETY
+  contained_tab_bar_view: ^0.8.0
 
 dev_dependencies:
   flutter_test:

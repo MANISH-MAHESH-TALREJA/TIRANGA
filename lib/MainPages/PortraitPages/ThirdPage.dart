@@ -1,9 +1,12 @@
 import 'dart:math' as math;
 import 'package:animated_background/animated_background.dart';
 import 'package:flutter/material.dart';
-import 'package:infinite_cards/infinite_cards.dart';
 import 'package:pokemon/Constants.dart';
 import 'package:pokemon/MainPages/Other/AppBarDrawer.dart';
+
+import '../../infinite_cards/src/anim_transform.dart';
+import '../../infinite_cards/src/infinite_card_view.dart';
+import '../../infinite_cards/src/infinite_cards_controller.dart';
 
 class ThirdPage extends StatefulWidget
 {

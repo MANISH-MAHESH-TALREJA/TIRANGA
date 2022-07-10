@@ -20,7 +20,7 @@ import 'FirstTabPages/ParentPages/Celebrate.dart';
 
 void showToast(BuildContext context, String message)
 {
-  Toast.show(message, context, duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM, backgroundColor: Constants.OrangeColor, textColor: Constants.GreenColor);
+  Toast.show(message, gravity: 0, backgroundColor: Constants.OrangeColor, webTexColor: Constants.GreenColor);
 }
 
 Future<String> _findLocalPath() async

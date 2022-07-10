@@ -140,10 +140,10 @@ class _NationalSongsOutputState extends State<NationalSongsOutput>
               front: Padding(
                 padding: const EdgeInsets.symmetric(vertical : 5.0),
                 child: Center(child: SingleChildScrollView(child: Html(
-                    defaultTextStyle: TextStyle(
+                    /*defaultTextStyle: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                        color: Colors.white),*/
                     data: '''  ${"<center>"+widget.hindi+"</center>"}   '''),
                 )),
               ),
@@ -155,10 +155,10 @@ class _NationalSongsOutputState extends State<NationalSongsOutput>
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical : 5.0),
                   child: Center(child: SingleChildScrollView(child: Html(
-                      defaultTextStyle: TextStyle(
+                      /*defaultTextStyle: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white),
+                          color: Colors.white),*/
                       data: '''  ${"<center>"+widget.english+"</center>"}   '''),
                   )),
                 ),
