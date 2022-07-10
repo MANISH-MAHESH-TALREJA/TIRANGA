@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "735878722236",
+    "project_id": "manish-tiranga",
+    "storage_bucket": "manish-tiranga.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:735878722236:android:fa06bf7662a9cf4a1f56b9",
+        "android_client_info": {
+          "package_name": "net.manish.pokemon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "735878722236-357emqhpr35hpomluc2gpvqj65ldr73q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "net.manish.pokemon",
+            "certificate_hash": "c1ebe2152c520e0e077a7f9d2ebea7178bc759d5"
+          }
+        },
+        {
+          "client_id": "735878722236-gbgrm0vf7vtb8eajvpnvjb18p3ps6ef5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWtuw0Zs_GqeXzpGVMgNBbk5tEkIteny8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "735878722236-gbgrm0vf7vtb8eajvpnvjb18p3ps6ef5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
