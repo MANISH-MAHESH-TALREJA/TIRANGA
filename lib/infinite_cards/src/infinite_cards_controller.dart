@@ -36,26 +36,26 @@ class InfiniteCardsController {
   Curve _curve;
 
   //helper
-  AnimHelper _animHelper;
+  AnimHelper? _animHelper;
 
   InfiniteCardsController({
-    @required IndexedWidgetBuilder itemBuilder,
-    @required int itemCount,
-    Duration animDuration,
+    required IndexedWidgetBuilder itemBuilder,
+    required int itemCount,
+    Duration? animDuration,
     bool clickItemToSwitch = true,
-    AnimTransform transformToFront = DefaultToFrontTransform,
-    AnimTransform transformToBack = DefaultToBackTransform,
-    AnimTransform transformCommon = DefaultCommonTransform,
-    AnimTransform transformAdd = DefaultAddTransform,
-    AnimTransform transformRemove = DefaultRemoveTransform,
-    ZIndexTransform zIndexTransformCommon = DefaultCommonZIndexTransform,
-    ZIndexTransform zIndexTransformToFront = DefaultToFrontZIndexTransform,
-    ZIndexTransform zIndexTransformToBack = DefaultCommonZIndexTransform,
-    AnimType animType = AnimType.TO_FRONT,
-    Curve curve = DefaultCurve,
+    AnimTransform transformToFront = defaultToFrontTransform,
+    AnimTransform transformToBack = defaultToBackTransform,
+    AnimTransform transformCommon = defaultCommonTransform,
+    AnimTransform transformAdd = defaultAddTransform,
+    AnimTransform transformRemove = defaultRemoveTransform,
+    ZIndexTransform zIndexTransformCommon = defaultCommonZIndexTransform,
+    ZIndexTransform zIndexTransformToFront = defaultToFrontZIndexTransform,
+    ZIndexTransform zIndexTransformToBack = defaultCommonZIndexTransform,
+    AnimType animType = AnimType.toFront,
+    Curve curve = defaultCurve,
   })  : _itemBuilder = itemBuilder,
         _itemCount = itemCount,
-        _animDuration = animDuration,
+        _animDuration = animDuration!,
         _clickItemToSwitch = clickItemToSwitch,
         _transformToFront = transformToFront,
         _transformToBack = transformToBack,
@@ -69,36 +69,36 @@ class InfiniteCardsController {
         _curve = curve;
 
   void previous() {
-    _animHelper.previous();
+    _animHelper!.previous();
   }
 
   void next() {
-    _animHelper.next();
+    _animHelper!.next();
   }
 
   void anim(int index) {
-    _animHelper.anim(index);
+    _animHelper!.anim(index);
   }
 
   //reset params
   void reset({
-    IndexedWidgetBuilder itemBuilder,
-    int itemCount,
-    Duration animDuration,
-    bool clickItemToSwitch,
-    AnimTransform transformToFront,
-    AnimTransform transformToBack,
-    AnimTransform transformCommon,
-    AnimTransform transformAdd,
-    AnimTransform transformRemove,
-    ZIndexTransform zIndexTransformCommon,
-    ZIndexTransform zIndexTransformToFront,
-    ZIndexTransform zIndexTransformToBack,
-    AnimType animType,
-    Curve curve,
+    IndexedWidgetBuilder? itemBuilder,
+    int? itemCount,
+    Duration? animDuration,
+    bool? clickItemToSwitch,
+    AnimTransform? transformToFront,
+    AnimTransform? transformToBack,
+    AnimTransform? transformCommon,
+    AnimTransform? transformAdd,
+    AnimTransform? transformRemove,
+    ZIndexTransform? zIndexTransformCommon,
+    ZIndexTransform? zIndexTransformToFront,
+    ZIndexTransform? zIndexTransformToBack,
+    AnimType? animType,
+    Curve? curve,
     bool forceReset = false,
   }) {
-    if (_animHelper.isAnim()) {
+    if (_animHelper!.isAnim()) {
       return;
     }
     //if item is changed, force reset
@@ -106,37 +106,37 @@ class InfiniteCardsController {
       forceReset = true;
     }
     //reset params while remove anim comes to an end
-    _animHelper.animCallback = (AnimStatus status) {
-      if (status == AnimStatus.RemoveEnd) {
-        this._itemBuilder = itemBuilder ?? this._itemBuilder;
-        this._itemCount = itemCount ?? this._itemCount;
-        this._animDuration = animDuration ?? this._animDuration;
-        this._clickItemToSwitch = clickItemToSwitch ?? this._clickItemToSwitch;
-        this._transformToFront = transformToFront ?? this._transformToFront;
-        this._transformToBack = transformToBack ?? this._transformToBack;
-        this._transformCommon = transformCommon ?? this._transformCommon;
-        this._transformAdd = transformAdd ?? this._transformAdd;
-        this._transformRemove = transformRemove ?? this._transformRemove;
-        this._zIndexTransformCommon =
-            zIndexTransformCommon ?? this._zIndexTransformCommon;
-        this._zIndexTransformToFront =
-            zIndexTransformToFront ?? this._zIndexTransformToFront;
-        this._zIndexTransformToBack =
-            zIndexTransformToBack ?? this._zIndexTransformToBack;
-        this._animType = animType ?? this._animType;
-        this._curve = curve ?? this._curve;
+    _animHelper!.animCallback = (AnimStatus status) {
+      if (status == AnimStatus.removeEnd) {
+        _itemBuilder = itemBuilder ?? _itemBuilder;
+        _itemCount = itemCount ?? _itemCount;
+        _animDuration = animDuration ?? _animDuration;
+        _clickItemToSwitch = clickItemToSwitch ?? _clickItemToSwitch;
+        _transformToFront = transformToFront ?? _transformToFront;
+        _transformToBack = transformToBack ?? _transformToBack;
+        _transformCommon = transformCommon ?? _transformCommon;
+        _transformAdd = transformAdd ?? _transformAdd;
+        _transformRemove = transformRemove ?? _transformRemove;
+        _zIndexTransformCommon =
+            zIndexTransformCommon ?? _zIndexTransformCommon;
+        _zIndexTransformToFront =
+            zIndexTransformToFront ?? _zIndexTransformToFront;
+        _zIndexTransformToBack =
+            zIndexTransformToBack ?? _zIndexTransformToBack;
+        _animType = animType ?? _animType;
+        _curve = curve ?? _curve;
         if (forceReset) {
-          _animHelper.resetWidgets();
+          _animHelper!.resetWidgets();
         }
-        _animHelper.animCallback = null;
+        _animHelper!.animCallback = null;
       }
     };
     if (forceReset) {
-      _animHelper.reset();
+      _animHelper!.reset();
       return;
     }
     //direct set params
-    _animHelper.animCallback(AnimStatus.RemoveEnd);
+    _animHelper!.animCallback!(AnimStatus.removeEnd);
   }
 
   Curve get curve => _curve;
