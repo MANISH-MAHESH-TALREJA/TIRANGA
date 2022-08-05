@@ -4,6 +4,7 @@ import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pokemon/general_utility_functions.dart';
+import 'package:toast/toast.dart';
 import '../../constants.dart';
 import '../other/app_bar_drawer.dart';
 import 'package:in_app_update/in_app_update.dart';
@@ -28,6 +29,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
   void initState()
   {
     super.initState();
+    ToastContext().init(context);
     InAppUpdate.checkForUpdate();
   }
 
@@ -125,7 +127,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
                   ],
                   textStyle: const TextStyle(
                       fontSize: 20.0,
-                      fontFamily: "Tahoma",
+                      fontFamily: "Poppins",
                       color: Constants.GreenColor,
                   fontWeight: FontWeight.bold,
                   ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:pokemon/main_pages/Other/start_page.dart';
+import 'package:toast/toast.dart';
 import 'constants.dart';
 
 class SplashScreen extends StatefulWidget
@@ -13,6 +14,7 @@ class SplashScreen extends StatefulWidget
 
 class SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin
 {
+
   var _visible = true;
   AnimationController? animationController;
   Animation<double>? animation;
@@ -31,8 +33,9 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
   void initState()
   {
     super.initState();
+    ToastContext().init(context);
     animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
-    animation = CurvedAnimation(parent: animation!, curve: Curves.easeOut);
+    animation = CurvedAnimation(parent: animationController!, curve: Curves.easeOut);
 
     animation?.addListener(() => setState(() {}));
     animationController?.forward();

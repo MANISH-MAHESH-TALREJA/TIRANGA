@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+List<RingtonesModel>? ringtonesModelFromJson(String str) => List<RingtonesModel>.from(json.decode(str).map((x) => RingtonesModel.fromJson(x)));
+String ringtonesModelToJson(List<RingtonesModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class RingtonesModel
 {
   String? audioLink;

@@ -1,10 +1,9 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon/main_pages/other/app_bar_drawer.dart';
-import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:pokemon/Models/national_detail_model.dart';
-
+import 'package:pokemon/models/national_detail_model.dart';
+import 'package:toast/toast.dart';
 import '../../constants.dart';
 import '../../general_utility_functions.dart';
 
@@ -21,9 +20,11 @@ class NationalSymbols extends StatefulWidget
 class _NationalSymbolsState extends State<NationalSymbols>
 {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context)
   {
+    ToastContext().init(context);
     return OrientationBuilder(
         builder: (context, orientation)
         {
@@ -61,12 +62,9 @@ class _NationalSymbolsState extends State<NationalSymbols>
   {
     Response response;
     response = await get(Uri.parse(page));
-    int statusCode = response.statusCode;
-    final body = json.decode(response.body);
-    debugPrint(body);
-    if (statusCode == 200)
+    if (response.statusCode == 200)
     {
-      categories = (body as List).map((i) => NationalDetailModel.fromJson(i)).toList();
+      categories = nationalDetailModelFromJson(response.body);
       return categories!;
     }
     else
@@ -135,13 +133,13 @@ class ContactWidget extends StatelessWidget
                         padding: const EdgeInsets.all(10),
                         child: Text(
                           title!,
-                          style: const TextStyle(fontSize: 20,color: Constants.OrangeColor, fontFamily: Constants.AppFont, fontWeight: FontWeight.bold),
+                          style: const TextStyle(fontSize: 16, color: Constants.OrangeColor, fontFamily: Constants.AppFont, fontWeight: FontWeight.bold),
                         )),
                     collapsed: Text(
                       description!,
                       softWrap: true,
                       maxLines: 2,
-                      style: const TextStyle(fontSize: 15,color: Constants.GreenColor, fontFamily: Constants.AppFont),
+                      style: const TextStyle(fontSize: 14,color: Constants.GreenColor, fontFamily: Constants.AppFont),
                       overflow: TextOverflow.ellipsis,
                     ),
                     expanded: Column(
@@ -177,7 +175,7 @@ class ContactWidget extends StatelessWidget
                                       const Icon(Icons.info_outline, color: Colors.white,),
                                       const SizedBox(width: 10,),
                                       Text(
-                                          "READ MORE".toUpperCase(),
+                                          "READ MORE",
                                           style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                                       ),
                                     ]

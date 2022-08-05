@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="flutter_downloader_notification_started">DOWNLOAD STARTED</string>
+    <string name="flutter_downloader_notification_in_progress">DOWNLOAD IN PROGRESS</string>
+    <string name="flutter_downloader_notification_canceled">DOWNLOAD CANCELED</string>
+    <string name="flutter_downloader_notification_failed">DOWNLOAD FAILED</string>
+    <string name="flutter_downloader_notification_complete">DOWNLOAD COMPLETE</string>
+    <string name="flutter_downloader_notification_paused">DOWNLOAD PAUSED</string>
+</resources>

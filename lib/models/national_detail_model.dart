@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+List<NationalDetailModel>? nationalDetailModelFromJson(String str) => List<NationalDetailModel>.from(json.decode(str).map((x) => NationalDetailModel.fromJson(x)));
+String nationalDetailModelToJson(List<NationalDetailModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class NationalDetailModel
 {
   String? name;

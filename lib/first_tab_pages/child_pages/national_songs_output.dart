@@ -1,15 +1,17 @@
 import 'dart:async';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:audio_player/audio_player.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
+
 import 'package:pokemon/general_utility_functions.dart';
-import '../../constants.dart';
 import 'package:pokemon/main_pages/other/app_bar_drawer.dart';
+import 'package:toast/toast.dart';
+import '../../Constants.dart';
+import '../../flutter_html/flutter_html.dart';
 
 typedef OnError = void Function(Exception exception);
 
-enum MyPlayerState { stopped, playing, paused }
+enum PlayerState { stopped, playing, paused }
 
 class NationalSongsOutput extends StatefulWidget
 {
@@ -25,6 +27,7 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
   void initState()
   {
     super.initState();
+    ToastContext().init(context);
     initAudioPlayer();
   }
 
@@ -32,9 +35,9 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
   Duration? position;
   AudioPlayer? audioPlayer;
   String? localFilePath;
-  MyPlayerState playerState = MyPlayerState.stopped;
-  get isPlaying => playerState == MyPlayerState.playing;
-  get isPaused => playerState == MyPlayerState.paused;
+  PlayerState playerState = PlayerState.stopped;
+  get isPlaying => playerState == PlayerState.playing;
+  get isPaused => playerState == PlayerState.paused;
   get durationText => duration != null ? duration.toString().split('.').first.replaceFirst("0:", "") : '';
   get positionText => position != null ? position.toString().split('.').first.replaceFirst("0:", "") : '';
   StreamSubscription? _positionSubscription;
@@ -43,24 +46,24 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
   @override
   void dispose()
   {
-    _positionSubscription?.cancel();
-    _audioPlayerStateSubscription?.cancel();
-    audioPlayer?.stop();
+    _positionSubscription!.cancel();
+    _audioPlayerStateSubscription!.cancel();
+    audioPlayer!.stop();
     super.dispose();
   }
 
   void initAudioPlayer()
   {
     audioPlayer = AudioPlayer();
-    _positionSubscription = audioPlayer!.onPositionChanged.listen((p) => setState(() => position = p));
+    _positionSubscription = audioPlayer!.onAudioPositionChanged.listen((p) => setState(() => position = p));
     _audioPlayerStateSubscription =
         audioPlayer!.onPlayerStateChanged.listen((s)
         {
-          if (s == PlayerState.playing)
+          if (s == AudioPlayerState.playing)
           {
-            setState(() async => duration = await audioPlayer!.getDuration());
+            setState(() => duration = audioPlayer!.duration);
           }
-          else if (s == PlayerState.stopped)
+          else if (s == AudioPlayerState.stopped)
           {
             onComplete();
             setState(()
@@ -72,7 +75,7 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
         {
           setState(()
           {
-            playerState = MyPlayerState.stopped;
+            playerState = PlayerState.stopped;
             duration = const Duration(seconds: 0);
             position = const Duration(seconds: 0);
           });
@@ -83,10 +86,10 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
   {
     if(await check())
     {
-      await audioPlayer!.play(UrlSource(ringUrl));
+      await audioPlayer!.play(ringUrl);
       setState(()
       {
-        playerState = MyPlayerState.playing;
+        playerState = PlayerState.playing;
       });
     }
     else
@@ -100,7 +103,7 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
     await audioPlayer!.pause();
     setState(()
     {
-      playerState = MyPlayerState.paused;
+      playerState = PlayerState.paused;
     });
   }
 
@@ -109,14 +112,14 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
     await audioPlayer!.stop();
     setState(()
     {
-      playerState = MyPlayerState.stopped;
+      playerState = PlayerState.stopped;
       position = null;
     });
   }
 
   void onComplete()
   {
-    setState(() => playerState = MyPlayerState.stopped);
+    setState(() => playerState = PlayerState.stopped);
   }
 
   @override
@@ -128,7 +131,7 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
           padding: const EdgeInsets.symmetric(horizontal:5.0),
           child: Container(
             decoration: BoxDecoration(
-              color: Constants.OrangeColor,
+                color: Constants.OrangeColor,
                 border: Border.all(
                   color: Constants.BlueColor,
                 ),
@@ -139,10 +142,10 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
               front: Padding(
                 padding: const EdgeInsets.symmetric(vertical : 5.0),
                 child: Center(child: SingleChildScrollView(child: Html(
-                    /*defaultTextStyle: TextStyle(
+                    defaultTextStyle: const TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white),*/
+                        color: Colors.white),
                     data: '''  ${"<center>${widget.hindi}</center>"}   '''),
                 )),
               ),
@@ -154,10 +157,10 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical : 5.0),
                   child: Center(child: SingleChildScrollView(child: Html(
-                      /*defaultTextStyle: TextStyle(
+                      defaultTextStyle: const TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white),*/
+                          color: Colors.white),
                       data: '''  ${"<center>${widget.english}</center>"}   '''),
                   )),
                 ),
@@ -174,23 +177,23 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
                   ),
                   borderRadius: const BorderRadius.all(Radius.circular(10))
               ),
-            height: 75,
-            width: MediaQuery.of(context).size.width-10,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>
-              [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>
-                  [
-                    Icon(Icons.swipe, color: Constants.BlueColor,),
-                    SizedBox(width: 5,),
-                    Text("CLICK ON THE CARD TO CHANGE LANGUAGE", maxLines: 2, textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 12,color: Constants.BlueColor, fontFamily: Constants.AppFont)),
-                  ],
-                ),
-                /*if (duration != null)
+              height: 75,
+              width: MediaQuery.of(context).size.width-10,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>
+                [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const <Widget>
+                    [
+                      Icon(Icons.swipe, color: Constants.BlueColor,),
+                      SizedBox(width: 5,),
+                      Text("CLICK ON THE CARD TO CHANGE LANGUAGE", maxLines: 2, textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 12,color: Constants.BlueColor, fontFamily: Constants.AppFont)),
+                    ],
+                  ),
+                  /*if (duration != null)
                   Slider(
                       value: position?.inMilliseconds?.toDouble() ?? 0.0,
                       onChanged: (double value)
@@ -199,51 +202,51 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
                       },
                       min: 0.0,
                       max: duration.inMilliseconds.toDouble()),*/
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children:
-                  [
-                    if (position != null)  Row(mainAxisSize: MainAxisSize.min, children:
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children:
                     [
-                      Padding(
-                        padding: const EdgeInsets.only(right:5.0, left : 5),
-                        child: CircularProgressIndicator(
-                          value: position != null && position!.inMilliseconds > 0 ? (position?.inMilliseconds.toDouble() ?? 0.0) / (duration?.inMilliseconds.toDouble() ?? 0.0) : 0.0,
-                          valueColor: const AlwaysStoppedAnimation(Constants.BlueColor),
-                          backgroundColor: Colors.grey[500],
+                      if (position != null)  Row(mainAxisSize: MainAxisSize.min, children:
+                      [
+                        Padding(
+                          padding: const EdgeInsets.only(right:5.0, left : 5),
+                          child: CircularProgressIndicator(
+                            value: position != null && position!.inMilliseconds > 0 ? (position?.inMilliseconds.toDouble() ?? 0.0) / (duration?.inMilliseconds.toDouble() ?? 0.0) : 0.0,
+                            valueColor: const AlwaysStoppedAnimation(Constants.BlueColor),
+                            backgroundColor: Colors.grey[500],
+                          ),
                         ),
+                        Text(position != null ? "${positionText ?? ''} / ${durationText ?? ''}" : duration != null ? durationText : '', style: const TextStyle(fontSize: 16.0),
+                        )
+                      ]),
+                      IconButton(
+                        onPressed: isPlaying ? null : () => play(widget.url),
+                        icon: const Icon(Icons.play_circle_outline),
+                        iconSize: 30,
+                        color: Colors.blue,
                       ),
-                      Text(position != null ? "${positionText ?? ''} / ${durationText ?? ''}" : duration != null ? durationText : '', style: const TextStyle(fontSize: 16.0),
-                      )
-                    ]),
-                    IconButton(
-                      onPressed: isPlaying ? null : () => play(widget.url),
-                      icon: const Icon(Icons.play_circle_outline),
-                      iconSize: 30,
-                      color: Colors.blue,
-                    ),
-                    IconButton(
-                      onPressed: isPlaying ? () => pause() : null,
-                      iconSize: 30.0,
-                      icon: const Icon(Icons.pause_circle_outline_outlined),
-                      color: Colors.blue,
-                    ),
-                    IconButton(
-                      onPressed: (isPlaying || isPaused) && position!=null ? () => stop() : null,
-                      icon: const Icon(Icons.stop_circle_outlined),
-                      iconSize: 30,
-                      color: Colors.red,
-                    ),
-                    IconButton(
-                      onPressed: () async => saveMedia(context, widget.url, "NATIONAL SONGS",'Music'),
-                      iconSize: 30,
-                      icon: const Icon(Icons.arrow_circle_down_outlined),
-                      color: Constants.GreenColor,
-                    ),
-                  ],
-                ),
-              ],
-            )
+                      IconButton(
+                        onPressed: isPlaying ? () => pause() : null,
+                        iconSize: 30.0,
+                        icon: const Icon(Icons.pause_circle_outline_outlined),
+                        color: Colors.blue,
+                      ),
+                      IconButton(
+                        onPressed: (isPlaying || isPaused) && position!=null ? () => stop() : null,
+                        icon: const Icon(Icons.stop_circle_outlined),
+                        iconSize: 30,
+                        color: Colors.red,
+                      ),
+                      IconButton(
+                        onPressed: () async => saveMedia(context, widget.url, "NATIONAL SONGS",'Music'),
+                        iconSize: 30,
+                        icon: const Icon(Icons.arrow_circle_down_outlined),
+                        color: Constants.GreenColor,
+                      ),
+                    ],
+                  ),
+                ],
+              )
           ),
         )
     );

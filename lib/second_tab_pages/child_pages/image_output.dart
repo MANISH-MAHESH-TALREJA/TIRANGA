@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pokemon/constants.dart';
 import 'package:pokemon/general_utility_functions.dart';
+import 'package:toast/toast.dart';
 import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
 
 import '../../main_pages/other/app_bar_drawer.dart';
@@ -18,9 +19,11 @@ class ImageOutput extends StatefulWidget
 
 class ImageOutputState extends State<ImageOutput>
 {
+
   @override
   Widget build(BuildContext context) 
   {
+    ToastContext().init(context);
     return Scaffold(
       appBar: const RepublicDrawer().RepublicAppBar(context,Constants.OutputAppBarTitle),
       body: Center(

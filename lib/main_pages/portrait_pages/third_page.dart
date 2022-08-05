@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:animated_background/animated_background.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon/constants.dart';
+import 'package:toast/toast.dart';
 import '../../infinite_cards/src/anim_transform.dart';
 import '../../infinite_cards/src/infinite_card_view.dart';
 import '../../infinite_cards/src/infinite_cards_controller.dart';
@@ -30,10 +31,11 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
   void initState()
   {
     super.initState();
+    ToastContext().init(context);
     _controller = InfiniteCardsController(
       itemBuilder: _renderItem,
       itemCount: 5,
-      animType: AnimType.toSwitch,
+      animType: AnimType.toSwitch, animDuration: const Duration(seconds: 1),
     );
   }
   List <String> imageList =
@@ -121,7 +123,7 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                               const Icon(Icons.arrow_back_outlined, color: Colors.white,),
                               const SizedBox(width: 5,),
                               Text(
-                                  "PREV".toUpperCase(),
+                                  "PREV",
                                   style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                               ),
                             ]
@@ -145,7 +147,7 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                               const Icon(Icons.refresh, color: Colors.white,),
                               const SizedBox(width: 5,),
                               Text(
-                                  "RESET".toUpperCase(),
+                                  "RESET",
                                   style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                               ),
                             ]
@@ -173,7 +175,7 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                               const Icon(Icons.arrow_forward_rounded, color: Colors.white,),
                               const SizedBox(width: 5,),
                               Text(
-                                  "NEXT".toUpperCase(),
+                                  "NEXT",
                                   style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                               ),
                             ]
@@ -240,7 +242,7 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                                 const Icon(Icons.arrow_back_outlined, color: Colors.white,),
                                 const SizedBox(width: 5,),
                                 Text(
-                                    "PREV".toUpperCase(),
+                                    "PREV",
                                     style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                                 ),
                               ]
@@ -264,7 +266,7 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                                 const Icon(Icons.refresh, color: Colors.white,),
                                 const SizedBox(width: 5,),
                                 Text(
-                                    "RESET".toUpperCase(),
+                                    "RESET",
                                     style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                                 ),
                               ]
@@ -292,7 +294,7 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                                 const Icon(Icons.arrow_forward_rounded, color: Colors.white,),
                                 const SizedBox(width: 5,),
                                 Text(
-                                    "NEXT".toUpperCase(),
+                                    "NEXT",
                                     style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                                 ),
                               ]

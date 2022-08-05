@@ -3,10 +3,9 @@ import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon/constants.dart';
 import 'package:pokemon/general_utility_functions.dart';
-import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:pokemon/Models/video_status_model.dart';
-
+import 'package:pokemon/models/video_status_model.dart';
+import 'package:toast/toast.dart';
 import '../../main_pages/other/app_bar_drawer.dart';
 
 // ignore: must_be_immutable
@@ -26,6 +25,7 @@ class _VideoFilesState extends State<VideoFiles>
   @override
   Widget build(BuildContext context)
   {
+    ToastContext().init(context);
     return OrientationBuilder(
         builder: (context, orientation)
         {
@@ -60,12 +60,9 @@ class _VideoFilesState extends State<VideoFiles>
   {
     Response response;
     response = await get(Uri.parse(page));
-    int statusCode = response.statusCode;
-    final body = json.decode(response.body);
-    debugPrint(body);
-    if (statusCode == 200)
+    if (response.statusCode == 200)
     {
-      categories = (body as List).map((i) => VideoStatusModel.fromJson(i)).toList();
+      categories = videoStatusModelFromJson(response.body);
       return categories!;
     }
     else

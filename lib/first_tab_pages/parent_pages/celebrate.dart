@@ -1,17 +1,17 @@
 import 'package:animated_background/animated_background.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:audio_player/audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:pokemon/main_pages/other/start_page.dart';
 import 'dart:math' as math;
 import 'dart:async';
-/*import 'dart:io';
+import 'dart:io';
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';*/
+import 'package:path_provider/path_provider.dart';
 import 'package:marquee_widget/marquee_widget.dart';
-
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:toast/toast.dart';
 
 import '../../constants.dart';
 
@@ -50,6 +50,7 @@ class CelebrateState extends State<Celebrate> with TickerProviderStateMixin
   void initState()
   {
     super.initState();
+    ToastContext().init(context);
     _load();
     Timer(const Duration(seconds: 63), ()
     {
@@ -74,16 +75,15 @@ class CelebrateState extends State<Celebrate> with TickerProviderStateMixin
 
   Future<void> _load() async
   {
-    /*final ByteData data = await rootBundle.load('assets/audio/national_anthem.mp3');
+    final ByteData data = await rootBundle.load('assets/audio/national_anthem.mp3');
     Directory tempDir = await getTemporaryDirectory();
     File tempFile = File('${tempDir.path}/national_anthem.mp3');
     await tempFile.writeAsBytes(data.buffer.asUint8List(), flush: true);
     mp3Uri = tempFile.uri.toString();
     if (mp3Uri != null)
     {
-      audioPlugin.play(AssetSource('assets/audio/national_anthem.mp3'));
-    }*/
-    audioPlugin.play(AssetSource('assets/audio/national_anthem.mp3'));
+      audioPlugin.play(mp3Uri!, isLocal: true);
+    }
   }
 
 

@@ -4,6 +4,7 @@ import 'package:pokemon/constants.dart';
 import 'package:pokemon/first_tab_pages/parent_pages/image_files.dart';
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:toast/toast.dart';
 import '../../carousel_pro/src/carousel_pro.dart';
 import 'third_page.dart';
 
@@ -14,6 +15,7 @@ class FirstPage extends StatelessWidget
   @override
   Widget build(BuildContext context)
   {
+    ToastContext().init(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>

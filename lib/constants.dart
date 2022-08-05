@@ -14,14 +14,14 @@ class Constants
   static const ShayariAPI              =   "https://api.npoint.io/3e1f71e5bc2dbd720fb5";
 
   static const AppName                 =    "TIRANGA";
-  static const AppFont                 =    "Tahoma";
+  static const AppFont                 =    "Poppins";
   static const AppIcon                 =    "assets/images/app_icon.png";
-  static const AppVersion              =    "2021-03-26";
+  static const AppVersion              =    "2022-08-05";
   static const AppEmail                =    "MANISHTALREJA189@GMAIL.COM";
   static const AppPackage              =    "net.manish.pokemon";
   static const AppPrivacyPolicyPage    =    "https://sites.google.com/view/poke-details-privacy-policy/";
-  static const AppWebsitePage          =    "http://manish.press/";
-  static const AppDeveloperPage        =    "https://play.google.com/store/apps/developer?id=MANISH+MAHESH+TALREJA";
+  static const AppWebsitePage          =    "http://manishtalreja.com/";
+  static const AppDeveloperPage        =    "https://play.google.com/store/apps/dev?id=6303512952363181395";
   static const AppPlayStoreLink        =    "https://play.google.com/store/apps/details?id=net.manish.pokemon";
 
   static const AppBarLeaders           =    ["FREEDOM FIGHTERS", "स्वतंत्रता सेनानी"];
@@ -35,12 +35,11 @@ class Constants
   static const AppBarWallpaper        =    ["WALLPAPERS", "भारतीय वालपेपर"];
   static const AppBarRingtone         =    ["RINGTONES", "भारतीय गाने के रिंगटन"];
 
-  static const BannerNetworkImage_01  =    "https://manish-mahesh-talreja.000webhostapp.com/APPLICATION-DATA/TIRANGA/BANNERS/001.jpg";
-  static const BannerNetworkImage_02  =    "https://manish-mahesh-talreja.000webhostapp.com/APPLICATION-DATA/TIRANGA/BANNERS/002.jpg";
-  static const BannerNetworkImage_03  =    "https://manish-mahesh-talreja.000webhostapp.com/APPLICATION-DATA/TIRANGA/BANNERS/003.jpg";
-  static const BannerNetworkImage_04  =    "https://manish-mahesh-talreja.000webhostapp.com/APPLICATION-DATA/TIRANGA/BANNERS/004.jpg";
-  static const BannerNetworkImage_05  =    "https://manish-mahesh-talreja.000webhostapp.com/APPLICATION-DATA/TIRANGA/BANNERS/005.jpg";
-
+  static const BannerNetworkImage_01  =    "https://manishtalreja.com/APPLICATION-DATA/TIRANGA/BANNERS/001.jpg";
+  static const BannerNetworkImage_02  =    "https://manishtalreja.com/APPLICATION-DATA/TIRANGA/BANNERS/002.jpg";
+  static const BannerNetworkImage_03  =    "https://manishtalreja.com/APPLICATION-DATA/TIRANGA/BANNERS/003.jpg";
+  static const BannerNetworkImage_04  =    "https://manishtalreja.com/APPLICATION-DATA/TIRANGA/BANNERS/004.jpg";
+  static const BannerNetworkImage_05  =    "https://manishtalreja.com/APPLICATION-DATA/TIRANGA/BANNERS/005.jpg";
   static const OutputAppBarTitle      =     ["JAI HIND", "INDEPENDENCE DAY", "भारत माता की जय", "स्वतंत्रता दिवस"];
 
   static const GreenColor             =     Color(0xFF138808);

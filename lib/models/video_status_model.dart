@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+List<VideoStatusModel>? videoStatusModelFromJson(String str) => List<VideoStatusModel>.from(json.decode(str).map((x) => VideoStatusModel.fromJson(x)));
+String videoStatusModelToJson(List<VideoStatusModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class VideoStatusModel
 {
   String? videoUrl;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon/second_tab_pages/parent_pages/ringtones_files.dart';
 import 'package:pokemon/second_tab_pages/parent_pages/video_files.dart';
+import 'package:toast/toast.dart';
 import 'constants.dart';
 import 'first_tab_pages/parent_pages/image_files.dart';
 import 'first_tab_pages/parent_pages/national_songs.dart';
@@ -21,6 +22,7 @@ class SubCategoryState extends State<SubCategory>
   @override
   Widget build(BuildContext context) 
   {
+    ToastContext().init(context);
     return Scaffold(
       appBar: const RepublicDrawer().RepublicAppBar(context, Constants.OutputAppBarTitle),
       body: OrientationBuilder(
@@ -36,7 +38,7 @@ class SubCategoryState extends State<SubCategory>
                       children: <Widget>
                       [
                         LandScapeCard("assets/images/butterfly.gif", "SONGS", NationalSongs(Constants.NationalSongsAPI, Constants.AppBarSongs), true),
-                        LandScapeCard("assets/images/heart.gif",  "WALLPAPER", ImageFiles(Constants.WallpaperAPI, Constants.AppBarWallpaper,"WALLPAPERS"), false),
+                        LandScapeCard("assets/images/heart.gif", "WALLPAPER", ImageFiles(Constants.WallpaperAPI, Constants.AppBarWallpaper,"WALLPAPERS"), false),
                       ],
                     ),
                     Row(

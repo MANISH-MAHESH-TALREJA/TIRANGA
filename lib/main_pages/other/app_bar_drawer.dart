@@ -32,7 +32,7 @@ class RepublicDrawer extends StatelessWidget
                     ],
                     textStyle: const TextStyle(
                       fontSize: 20.0,
-                      fontFamily: "Tahoma",
+                      fontFamily: "Poppins",
                       color: Constants.GreenColor,
                       fontWeight: FontWeight.bold,
                     ),
@@ -52,7 +52,7 @@ class RepublicDrawer extends StatelessWidget
                     ],
                     textStyle: const TextStyle(
                       fontSize: 20.0,
-                      fontFamily: "Tahoma",
+                      fontFamily: "Poppins",
                       color: Constants.GreenColor,
                       fontWeight: FontWeight.bold,
                     ),
@@ -235,7 +235,7 @@ class RepublicDrawer extends StatelessWidget
       [
         IconButton
           (
-            icon: const Icon(Icons.share, color: Constants.OrangeColor,),
+            icon: const Icon(Icons.share, color: Constants.OrangeColor, size: 25,),
             tooltip: 'SHARE APPLICATION',
             onPressed: () => shareMe()
         ),
@@ -247,7 +247,7 @@ class RepublicDrawer extends StatelessWidget
             text: title,
             textStyle: const TextStyle(
                 fontSize: 19.0,
-                fontFamily: "Tahoma",
+                fontFamily: "Poppins",
                 color: Constants.OrangeColor,
                 fontWeight: FontWeight.bold
             ),
@@ -260,7 +260,7 @@ class RepublicDrawer extends StatelessWidget
       elevation: 0,
       iconTheme: const IconThemeData(
           color: Constants.OrangeColor,
-          size: 50
+          size: 25
       ),
       backgroundColor: Colors.transparent,
     );

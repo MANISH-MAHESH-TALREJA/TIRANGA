@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+List<NationalSongsModel>? nationalSongsModelFromJson(String str) => List<NationalSongsModel>.from(json.decode(str).map((x) => NationalSongsModel.fromJson(x)));
+String nationalSongsModelToJson(List<NationalSongsModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+
 class NationalSongsModel
 {
   String? link;

@@ -1,12 +1,15 @@
 import 'dart:async';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:audio_player/audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon/general_utility_functions.dart';
+import 'package:quds_popup_menu/quds_popup_menu.dart';
+import 'package:ringtone_set/ringtone_set.dart';
+import 'package:toast/toast.dart';
 import '../../constants.dart';
 
 typedef OnError = void Function(Exception exception);
 
-enum MyPlayerState { stopped, playing, paused }
+enum PlayerState { stopped, playing, paused }
 
 class AudioApp extends StatefulWidget
 {
@@ -22,6 +25,7 @@ class AudioAppState extends State<AudioApp>
   void initState()
   {
     super.initState();
+    ToastContext().init(context);
     initAudioPlayer();
   }
 
@@ -49,15 +53,15 @@ class AudioAppState extends State<AudioApp>
   void initAudioPlayer()
   {
     audioPlayer = AudioPlayer();
-    _positionSubscription = audioPlayer!.onPositionChanged.listen((p) => setState(() => position = p));
+    _positionSubscription = audioPlayer!.onAudioPositionChanged.listen((p) => setState(() => position = p));
     _audioPlayerStateSubscription =
         audioPlayer!.onPlayerStateChanged.listen((s)
         {
-          if (s == PlayerState.playing)
+          if (s == AudioPlayerState.playing)
           {
-            setState(() async => duration = await audioPlayer!.getDuration());
+            setState(() => duration = audioPlayer!.duration);
           }
-          else if (s == PlayerState.stopped)
+          else if (s == AudioPlayerState.stopped)
           {
             onComplete();
             setState(()
@@ -76,11 +80,46 @@ class AudioAppState extends State<AudioApp>
         });
   }
 
+  List<QudsPopupMenuBase> getMenuItems()
+  {
+    return [
+
+      QudsPopupMenuItem(
+          leading: const Icon(Icons.alarm),
+          title: const Text('ALARM'),
+          subTitle: const Text('Set This Song As Alarm Tone'),
+          onPressed: ()
+          {
+            setRingtone(context, widget.url, 0);
+          }),
+
+      QudsPopupMenuDivider(),
+      QudsPopupMenuItem(
+          leading: const Icon(Icons.call_outlined),
+          title: const Text('RINGTONE'),
+          subTitle: const Text('Set This Song As Ringtone'),
+          onPressed: ()
+          {
+            setRingtone(context, widget.url, 1);
+          }),
+
+      QudsPopupMenuDivider(),
+      QudsPopupMenuItem(
+          leading: const Icon(Icons.notifications_active_outlined),
+          title: const Text('NOTIFICATION'),
+          subTitle: const Text('Set This Song As Notification'),
+          onPressed: ()
+          {
+            setRingtone(context, widget.url, 2);
+          }),
+    ];
+  }
+
   Future play(String ringUrl) async
   {
     if(await check())
     {
-      await audioPlayer!.play(UrlSource(ringUrl));
+      await audioPlayer!.play(ringUrl);
       setState(()
       {
         playerState = PlayerState.playing;
@@ -92,13 +131,22 @@ class AudioAppState extends State<AudioApp>
     }
   }
 
+  Future pause() async
+  {
+    await audioPlayer!.pause();
+    setState(()
+    {
+      playerState = PlayerState.paused;
+    });
+  }
+
   Future stop() async
   {
     await audioPlayer!.stop();
     setState(()
     {
       playerState = PlayerState.stopped;
-      position = const Duration();
+      position = null;
     });
   }
 
@@ -111,7 +159,7 @@ class AudioAppState extends State<AudioApp>
   Widget build(BuildContext context)
   {
     return SizedBox(
-      height: 130,
+      height: 135,
       child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -157,32 +205,69 @@ class AudioAppState extends State<AudioApp>
                 ),
               ],
             ),
-            ElevatedButton(
-                style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                    backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.00),
-                            side: const BorderSide(color: Constants.GreenColor)
-                        )
-                    )
-                ),
-                onPressed: () => mediaShare(context, widget.url, "RINGTONES", "audio"),
-                child: SizedBox(
-                  width: 160,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Icon(Icons.share_rounded, color: Colors.white,),
-                        const SizedBox(width: 10,),
-                        Text(
-                            "SHARE RINGTONE".toUpperCase(),
-                            style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
+                          backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.00),
+                                  side: const BorderSide(color: Constants.GreenColor)
+                              )
+                          )
+                      ),
+                      onPressed: () {},
+                      child: QudsPopupButton(
+                        tooltip: 'SET RINGTONE',
+                        items: getMenuItems(),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              const Icon(Icons.library_music_outlined, color: Colors.white, size: 20,),
+                              const SizedBox(width: 10,),
+                              Text(
+                                  "SET RINGTONE",
+                                  style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
+                              ),
+                            ]
                         ),
-                      ]
+                      )
                   ),
-                )
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
+                          backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.00),
+                                  side: const BorderSide(color: Constants.GreenColor)
+                              )
+                          )
+                      ),
+                      onPressed: () => mediaShare(context, widget.url, "RINGTONES", "audio"),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            const Icon(Icons.share_rounded, color: Colors.white, size: 20,),
+                            const SizedBox(width: 10,),
+                            Text(
+                                "SHARE RINGTONE",
+                                style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
+                            ),
+                          ]
+                      )
+                  ),
+                ),
+              ],
             ),
           ],
         ),

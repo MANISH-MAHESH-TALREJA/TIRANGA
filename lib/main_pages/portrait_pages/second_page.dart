@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon/constants.dart';
+import 'package:toast/toast.dart';
 import '../../first_tab_pages/parent_pages/image_files.dart';
 import '../../first_tab_pages/parent_pages/national_songs.dart';
 import '../../first_tab_pages/parent_pages/national_symbols.dart';
@@ -20,6 +21,7 @@ class SecondPageState extends State<SecondPage>
   @override
   Widget build(BuildContext context)
   {
+    ToastContext().init(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[

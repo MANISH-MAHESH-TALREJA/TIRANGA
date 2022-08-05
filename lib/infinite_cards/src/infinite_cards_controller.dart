@@ -41,7 +41,7 @@ class InfiniteCardsController {
   InfiniteCardsController({
     required IndexedWidgetBuilder itemBuilder,
     required int itemCount,
-    Duration? animDuration,
+    required Duration animDuration,
     bool clickItemToSwitch = true,
     AnimTransform transformToFront = defaultToFrontTransform,
     AnimTransform transformToBack = defaultToBackTransform,
@@ -55,7 +55,7 @@ class InfiniteCardsController {
     Curve curve = defaultCurve,
   })  : _itemBuilder = itemBuilder,
         _itemCount = itemCount,
-        _animDuration = animDuration!,
+        _animDuration = animDuration,
         _clickItemToSwitch = clickItemToSwitch,
         _transformToFront = transformToFront,
         _transformToBack = transformToBack,

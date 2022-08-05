@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:toast/toast.dart';
 
 import '../../main_pages/home_pages/horizontal_main_page.dart';
 import '../../main_pages/home_pages/portrait_main_page.dart';
@@ -18,6 +19,7 @@ class HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context)
   {
+    ToastContext().init(context);
     return OrientationBuilder(
       builder: (context, orientation)
       {

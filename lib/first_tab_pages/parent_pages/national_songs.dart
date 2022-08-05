@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:pokemon/main_pages/other/app_bar_drawer.dart';
-import 'dart:convert';
 import 'package:http/http.dart';
-
+import 'package:toast/toast.dart';
 import '../../constants.dart';
 import '../../general_utility_functions.dart';
 import '../../models/national_songs_model.dart';
@@ -26,6 +25,7 @@ class _NationalSongsState extends State<NationalSongs>
   @override
   Widget build(BuildContext context)
   {
+    ToastContext().init(context);
     return OrientationBuilder(
         builder: (context, orientation)
         {
@@ -41,9 +41,13 @@ class _NationalSongsState extends State<NationalSongs>
                     case ConnectionState.none:
                     case ConnectionState.waiting:
                       return const RepublicDrawer().TirangaProgressBar(context, orientation);
+                    case ConnectionState.active:
+                    case ConnectionState.done:
+                      return createListView(context, snapshot, orientation);
                     default:
                       if (snapshot.hasError)
                       {
+                        debugPrint(snapshot.error.toString());
                         return Center(child: Image.asset("assets/images/independence.gif"));
                       }
                       else
@@ -63,12 +67,9 @@ class _NationalSongsState extends State<NationalSongs>
   {
     Response response;
     response = await get(Uri.parse(page));
-    int statusCode = response.statusCode;
-    final body = json.decode(response.body);
-    debugPrint(body);
-    if (statusCode == 200)
+    if (response.statusCode == 200)
     {
-      categories = (body as List).map((i) => NationalSongsModel.fromJson(i)).toList();
+      categories = nationalSongsModelFromJson(response.body);
       return categories!;
     }
     else
@@ -112,8 +113,8 @@ class _NationalSongsState extends State<NationalSongs>
                           textDirection : TextDirection.ltr,
                           animationDuration: const Duration(seconds: 3),
                           directionMarguee: DirectionMarguee.oneDirection,
-                          child: Text(value.name!.toUpperCase(), maxLines: 2, //textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 20,color: (index+1)%2==0?Constants.BlueColor:Colors.white, fontFamily: Constants.AppFont, fontWeight: FontWeight.bold)
+                          child: Text(value.name!, maxLines: 2, //textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 16,color: (index+1)%2==0?Constants.BlueColor:Colors.white, fontFamily: Constants.AppFont, fontWeight: FontWeight.bold)
                           )
                       )
                       ),

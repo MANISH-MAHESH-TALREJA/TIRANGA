@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon/main_pages/other/app_bar_drawer.dart';
-import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:pokemon/Models/image_model.dart';
+import 'package:pokemon/models/image_model.dart';
 import 'package:pokemon/second_tab_pages/child_pages/image_output.dart';
+import 'package:toast/toast.dart';
 import '../../general_utility_functions.dart';
 
 // ignore: must_be_immutable
@@ -25,6 +25,7 @@ class _ImageFilesState extends State<ImageFiles>
   @override
   Widget build(BuildContext context)
   {
+    ToastContext().init(context);
     return OrientationBuilder(
         builder: (context, orientation)
         {
@@ -62,12 +63,9 @@ class _ImageFilesState extends State<ImageFiles>
   {
     Response response;
     response = await get(Uri.parse(page));
-    int statusCode = response.statusCode;
-    final body = json.decode(response.body);
-    debugPrint(body);
-    if (statusCode == 200)
+    if (response.statusCode == 200)
     {
-      categories = (body as List).map((i) => ImageModel.fromJson(i)).toList();
+      categories = imageModelFromJson(response.body);
       return categories!;
     }
     else

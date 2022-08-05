@@ -1,14 +1,19 @@
 import 'dart:async';
-import 'package:audioplayers/audioplayers.dart';
+import 'package:audio_player/audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'dart:convert';
 import 'package:http/http.dart';
-import 'package:pokemon/Models/ringtones_model.dart';
+import 'package:pokemon/models/ringtones_model.dart';
+import 'package:toast/toast.dart';
 import '../../constants.dart';
+import '../../general_utility_functions.dart';
 import '../../main_pages/other/app_bar_drawer.dart';
 import '../child_pages/ringtones_output.dart';
+
+typedef OnError = void Function(Exception exception);
+
+enum PlayerState { stopped, playing, paused }
 
 // ignore: must_be_immutable
 class RingtoneFiles extends StatefulWidget
@@ -28,18 +33,20 @@ class _RingtoneFilesState extends State<RingtoneFiles>
   void initState()
   {
     super.initState();
+    ToastContext().init(context);
     initAudioPlayer();
   }
 
   Duration? duration;
+  TextEditingController searchController = TextEditingController();
   Duration? position;
   AudioPlayer? audioPlayer;
   String? localFilePath;
   PlayerState playerState = PlayerState.stopped;
   get isPlaying => playerState == PlayerState.playing;
   get isPaused => playerState == PlayerState.paused;
-  get durationText => duration != null ? duration.toString().split('.').first : '';
-  get positionText => position != null ? position.toString().split('.').first : '';
+  get durationText => duration != null ? duration.toString().split('.').first.replaceFirst("0:", "") : '';
+  get positionText => position != null ? position.toString().split('.').first.replaceFirst("0:", "") : '';
   StreamSubscription? _positionSubscription;
   StreamSubscription? _audioPlayerStateSubscription;
 
@@ -55,15 +62,15 @@ class _RingtoneFilesState extends State<RingtoneFiles>
   void initAudioPlayer()
   {
     audioPlayer = AudioPlayer();
-    _positionSubscription = audioPlayer!.onPositionChanged.listen((p) => setState(() => position = p));
+    _positionSubscription = audioPlayer!.onAudioPositionChanged.listen((p) => setState(() => position = p));
     _audioPlayerStateSubscription =
         audioPlayer!.onPlayerStateChanged.listen((s)
         {
-          if (s == PlayerState.playing)
+          if (s == AudioPlayerState.playing)
           {
-            setState(() async => duration = await audioPlayer!.getDuration());
+            setState(() => duration = audioPlayer!.duration);
           }
-          else if (s == PlayerState.stopped)
+          else if (s == AudioPlayerState.stopped)
           {
             onComplete();
             setState(()
@@ -84,10 +91,26 @@ class _RingtoneFilesState extends State<RingtoneFiles>
 
   Future play(String ringUrl) async
   {
-    await audioPlayer!.play(UrlSource(ringUrl));
+    if(await check())
+    {
+      await audioPlayer!.play(ringUrl);
+      setState(()
+      {
+        playerState = PlayerState.playing;
+      });
+    }
+    else
+    {
+      showToast("INTERNET CONNECTION UNAVAILABLE");
+    }
+  }
+
+  Future pause() async
+  {
+    await audioPlayer!.pause();
     setState(()
     {
-      playerState = PlayerState.playing;
+      playerState = PlayerState.paused;
     });
   }
 
@@ -105,6 +128,7 @@ class _RingtoneFilesState extends State<RingtoneFiles>
   {
     setState(() => playerState = PlayerState.stopped);
   }
+
 
   @override
   Widget build(BuildContext context)
@@ -147,12 +171,9 @@ class _RingtoneFilesState extends State<RingtoneFiles>
   {
     Response response;
     response = await get(Uri.parse(page));
-    int statusCode = response.statusCode;
-    final body = json.decode(response.body);
-    debugPrint(body);
-    if (statusCode == 200)
+    if (response.statusCode == 200)
     {
-      categories = (body as List).map((i) => RingtonesModel.fromJson(i)).toList();
+      categories = ringtonesModelFromJson(response.body);
       return categories!;
     }
     else
@@ -169,7 +190,7 @@ class _RingtoneFilesState extends State<RingtoneFiles>
         padding: const EdgeInsets.all(5.0),
         child: Card(
             elevation: 2,
-            color: (index+1)%2==0 ?Colors.lightGreen:Colors.orangeAccent,
+            color: (index+1)%2==0 ? Colors.lightGreen : Colors.orangeAccent,
             borderOnForeground: true,
             //shadowColor: newColor,
             shape: RoundedRectangleBorder(
@@ -196,8 +217,8 @@ class _RingtoneFilesState extends State<RingtoneFiles>
                           textDirection : TextDirection.ltr,
                           animationDuration: const Duration(seconds: 3),
                           directionMarguee: DirectionMarguee.oneDirection,
-                          child: Text(value.audioName!.toUpperCase(), maxLines: 2, //textAlign: TextAlign.center,
-                              style: TextStyle(fontSize: 20,color: (index+1)%2==0?Constants.BlueColor:Colors.white, fontFamily: Constants.AppFont, fontWeight: FontWeight.bold)))),
+                          child: Text(value.audioName!, maxLines: 2, //textAlign: TextAlign.center,
+                              style: TextStyle(fontSize: 16,color: (index+1)%2==0?Constants.BlueColor:Colors.white, fontFamily: Constants.AppFont, fontWeight: FontWeight.bold)))),
                     ),
                   ])
                 ],
@@ -214,7 +235,8 @@ class _RingtoneFilesState extends State<RingtoneFiles>
     return ListView.builder(
       key: UniqueKey(),
       itemCount: data.length,
-      itemBuilder: (context, index) {
+      itemBuilder: (context, index)
+      {
         final value = data[index];
         return TirangaCard(index, value, orientation);
       },
