@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pokemon/constants.dart';
 import 'package:pokemon/general_utility_functions.dart';
@@ -70,14 +70,14 @@ class ImageOutputState extends State<ImageOutput>
               backgroundColor: Colors.yellow,
               label: 'SAVE TO GALLERY',
               labelStyle: const TextStyle(fontSize: 18.0),
-              onTap: () async => saveMedia(context, widget.image, "IMAGES",'Pictures')
+              onTap: () async => saveMedia(context, widget.image, widget.imageType,'Pictures')
           ),
           SpeedDialChild(
               child: const Icon(Icons.share),
               backgroundColor: Colors.red,
               label: 'SHARE ${widget.imageType}',
               labelStyle: const TextStyle(fontSize: 18.0),
-              onTap: () => mediaShare(context, widget.image, widget.imageType, "image")
+              onTap: () => mediaShare(widget.image, widget.imageType, "image")
           ),
           SpeedDialChild(
             child: const Icon(Icons.home),

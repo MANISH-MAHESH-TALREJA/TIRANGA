@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/constants.dart';
 import 'package:toast/toast.dart';
 import '../../first_tab_pages/parent_pages/image_files.dart';
-import '../../first_tab_pages/parent_pages/national_songs.dart';
+import '../../first_tab_pages/parent_pages/national_songs_list.dart';
 import '../../first_tab_pages/parent_pages/national_symbols.dart';
 import '../../general_utility_functions.dart';
-import '../../second_tab_pages/parent_pages/ringtones_files.dart';
+import '../../second_tab_pages/parent_pages/ringtones_list.dart';
 import '../../second_tab_pages/parent_pages/video_files.dart';
 
 class SecondPage extends StatefulWidget
@@ -29,7 +29,7 @@ class SecondPageState extends State<SecondPage>
           mainAxisAlignment: MainAxisAlignment.center,
           children:
           [
-            NavratriCard("assets/images/butterfly.gif", Constants.OrangeColor, "SONGS",NationalSongs(Constants.NationalSongsAPI, Constants.AppBarSongs)),
+            NavratriCard("assets/images/butterfly.gif", Constants.OrangeColor, "SONGS", NationalSongsList(Constants.NationalSongsAPI, Constants.AppBarSongs)),
             NavratriCard("assets/images/circle.gif", Constants.OrangeColor, "STATUS",VideoFiles(Constants.VideoStatusAPI, Constants.AppBarStatus)),
           ],
         ),
@@ -96,7 +96,7 @@ class SecondPageState extends State<SecondPage>
           children:
           [
             NavratriCard("assets/images/heart.gif", Constants.GreenColor, "WALLPAPER", ImageFiles(Constants.WallpaperAPI, Constants.AppBarWallpaper,"WALLPAPER")),
-            NavratriCard("assets/images/jai_hind.gif", Constants.GreenColor, "RINGTONE", RingtoneFiles(Constants.RingtoneAPI, Constants.AppBarRingtone)),
+            NavratriCard("assets/images/jai_hind.gif", Constants.GreenColor, "RINGTONE", RingtonesList(Constants.RingtoneAPI, Constants.AppBarRingtone)),
           ],
         ),
       ],

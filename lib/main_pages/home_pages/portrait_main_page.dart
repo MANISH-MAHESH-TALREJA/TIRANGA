@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:flutter/services.dart';
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:toast/toast.dart';
@@ -188,7 +188,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
                   ),
                 ),
               ),
-              Padding(
+              /*Padding(
                 padding: const EdgeInsets.symmetric(horizontal:8.0, vertical: 2.5),
                 child: Card(
                   elevation: 2,
@@ -202,7 +202,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
                     onTap: () => launchLink(Constants.AppPlayStoreLink),
                   ),
                 ),
-              ),
+              ),*/
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal:8.0, vertical: 2.5),
                 child: Card(

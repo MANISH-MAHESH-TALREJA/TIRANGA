@@ -4,16 +4,25 @@ import 'dart:ui';
 
 class Constants
 {
-  static const NationalSymbolsAPI      =   "https://api.npoint.io/d7067cc1791ab1980776";
-  static const NationalSongsAPI        =   "https://api.npoint.io/ab22be4b86e2f99c7ea6";
-  static const UnknownFactsAPI         =   "https://api.npoint.io/d7067cc1791ab1980776";
-  static const RingtoneAPI             =   "https://api.npoint.io/24e2057c7b462c81cec1";
-  static const VideoStatusAPI          =   "https://api.npoint.io/8c573804a864deb530cd";
-  static const WallpaperAPI            =   "https://api.npoint.io/8f33604dc5e66da4aebd";
-  static const NameLettersAPI          =   "https://api.npoint.io/070045442dca706c3b28";
-  static const ShayariAPI              =   "https://api.npoint.io/3e1f71e5bc2dbd720fb5";
+  // static const NationalSymbolsAPI      =   "https://api.npoint.io/d7067cc1791ab1980776";
+  // static const NationalSongsAPI        =   "https://api.npoint.io/ab22be4b86e2f99c7ea6";
+  // static const UnknownFactsAPI         =   "https://api.npoint.io/d7067cc1791ab1980776";
+  // static const RingtoneAPI             =   "https://api.npoint.io/24e2057c7b462c81cec1";
+  // static const VideoStatusAPI          =   "https://api.npoint.io/8c573804a864deb530cd";
+  // static const WallpaperAPI            =   "https://api.npoint.io/8f33604dc5e66da4aebd";
+  // static const NameLettersAPI          =   "https://api.npoint.io/070045442dca706c3b28";
+  // static const ShayariAPI              =   "https://api.npoint.io/3e1f71e5bc2dbd720fb5";
+
+  static const NationalSymbolsAPI      =   "https://manishtalreja.com/TIRANGA/NATIONAL_SYMBOLS.JSON";
+  static const NationalSongsAPI        =   "https://manishtalreja.com/TIRANGA/NATIONAL_SONGS.JSON";
+  static const RingtoneAPI             =   "https://manishtalreja.com/TIRANGA/RINGTONES.JSON";
+  static const VideoStatusAPI          =   "https://manishtalreja.com/TIRANGA/VIDEO_STATUS.JSON";
+  static const WallpaperAPI            =   "https://manishtalreja.com/TIRANGA/WALLPAPERS.JSON";
+  static const NameLettersAPI          =   "https://manishtalreja.com/TIRANGA/NAME_LETTERS.JSON";
+  static const ShayariAPI              =   "https://manishtalreja.com/TIRANGA/SHAYARI.JSON";
 
   static const AppName                 =    "TIRANGA";
+  static const AppNotificationKey      =    "TIRANGA";
   static const AppFont                 =    "Poppins";
   static const AppIcon                 =    "assets/images/app_icon.png";
   static const AppVersion              =    "2022-08-05";

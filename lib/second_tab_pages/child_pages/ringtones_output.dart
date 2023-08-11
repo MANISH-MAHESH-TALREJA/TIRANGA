@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:audio_player/audio_player.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:quds_popup_menu/quds_popup_menu.dart';
-import 'package:ringtone_set/ringtone_set.dart';
 import 'package:toast/toast.dart';
 import '../../constants.dart';
 
@@ -198,7 +197,7 @@ class AudioAppState extends State<AudioApp>
                   color: Colors.red,
                 ),
                 IconButton(
-                  onPressed: () async => saveMedia(context, widget.url, "RINGTONES", 'Music'),
+                  onPressed: () async => saveMedia(context, widget.url, "RINGTONE", 'Music'),
                   iconSize: 35,
                   icon: const Icon(Icons.file_download),
                   color: Constants.GreenColor,
@@ -226,14 +225,14 @@ class AudioAppState extends State<AudioApp>
                       child: QudsPopupButton(
                         tooltip: 'SET RINGTONE',
                         items: getMenuItems(),
-                        child: Row(
+                        child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              const Icon(Icons.library_music_outlined, color: Colors.white, size: 20,),
-                              const SizedBox(width: 10,),
+                              Icon(Icons.library_music_outlined, color: Colors.white, size: 20,),
+                              SizedBox(width: 10,),
                               Text(
                                   "SET RINGTONE",
-                                  style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
+                                  style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
                               ),
                             ]
                         ),
@@ -253,15 +252,15 @@ class AudioAppState extends State<AudioApp>
                               )
                           )
                       ),
-                      onPressed: () => mediaShare(context, widget.url, "RINGTONES", "audio"),
-                      child: Row(
+                      onPressed: () => mediaShare(widget.url, "RINGTONES", "audio"),
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            const Icon(Icons.share_rounded, color: Colors.white, size: 20,),
-                            const SizedBox(width: 10,),
+                            Icon(Icons.share_rounded, color: Colors.white, size: 20,),
+                            SizedBox(width: 10,),
                             Text(
                                 "SHARE RINGTONE",
-                                style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
+                                style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
                             ),
                           ]
                       )

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/constants.dart';
 import 'package:pokemon/first_tab_pages/parent_pages/image_files.dart';
 import 'package:pokemon/general_utility_functions.dart';

@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/main_pages/Other/start_page.dart';
 import 'package:toast/toast.dart';
 import 'constants.dart';
+import 'notification_utility.dart';
 
 class SplashScreen extends StatefulWidget
 {
@@ -34,6 +35,10 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
   {
     super.initState();
     ToastContext().init(context);
+    Future.delayed(Duration.zero, ()
+    {
+      NotificationUtility.setUpNotificationService(context);
+    });
     animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     animation = CurvedAnimation(parent: animationController!, curve: Curves.easeOut);
 

@@ -1,6 +1,6 @@
 import 'dart:convert';
 // ignore_for_file: depend_on_referenced_packages
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/flutter_html/rich_text_parser.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;
@@ -883,7 +883,7 @@ class HtmlOldParser extends StatelessWidget {
     } else if (node is dom.Text) {
       //We don't need to worry about rendering extra whitespace
       if (node.text.trim() == "" && !node.text.contains(" ")) {
-        return Wrap();
+        return const Wrap();
       }
       if (node.text.trim() == "" && node.text.contains(" ")) {
         node.text = " ";
@@ -898,7 +898,7 @@ class HtmlOldParser extends StatelessWidget {
         return Text(finalText);
       }
     }
-    return Wrap();
+    return const Wrap();
   }
 
   List<Widget> _parseNodeList(List<dom.Node> nodeList) {
