@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget
 
 class _HomePageState extends State<HomePage>
 {
-  DateTime currentBackPressTime;
+  DateTime? currentBackPressTime;
 
   @override
   Widget build(BuildContext context)

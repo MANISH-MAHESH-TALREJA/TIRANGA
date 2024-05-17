@@ -12,8 +12,8 @@ class SplashScreen extends StatefulWidget
 class SplashScreenState extends State<SplashScreen> with SingleTickerProviderStateMixin
 {
   var _visible = true;
-  AnimationController animationController;
-  Animation<double> animation;
+  AnimationController? animationController;
+  Animation<double>? animation;
   startTime() async
   {
     var _duration = new Duration(seconds: 5);
@@ -30,10 +30,10 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
   {
     super.initState();
     animationController = new AnimationController(vsync: this, duration: new Duration(seconds: 2));
-    animation = new CurvedAnimation(parent: animationController, curve: Curves.easeOut);
+    animation = new CurvedAnimation(parent: animationController!, curve: Curves.easeOut);
 
-    animation.addListener(() => this.setState(() {}));
-    animationController.forward();
+    animation!.addListener(() => this.setState(() {}));
+    animationController!.forward();
 
     setState(()
     {
@@ -54,8 +54,8 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
           [
             new Image.asset(
               'assets/images/wish_chakra.gif',
-              width: animation.value * 250,
-              height: animation.value * 250,
+              width: animation!.value * 250,
+              height: animation!.value * 250,
             ),
           ],
         ),

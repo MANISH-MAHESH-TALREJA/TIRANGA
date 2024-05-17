@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 import 'package:pokemon/Constants.dart';
 import 'package:pokemon/GeneralUtilityFunctions.dart';
 import 'package:pokemon/MainPages/Other/AppBarDrawer.dart';
-import 'package:wallpaper_manager/wallpaper_manager.dart';
 
 // ignore: must_be_immutable
 class ImageOutput extends StatefulWidget
 {
   String image;
   String imageType;
-  ImageOutput({Key key, @required this.image, @required this.imageType}) : super(key: key);
+  ImageOutput({required this.image, required this.imageType});
   @override
   _ImageOutputState createState() => _ImageOutputState();
 }
@@ -94,7 +94,7 @@ class _ImageOutputState extends State<ImageOutput>
             backgroundColor: Colors.pinkAccent,
             label: 'SET AS BOTH SCREENS',
             labelStyle: TextStyle(fontSize: 18.0),
-            onTap: () async => setWallpaper(context, widget.image, "HOME SCREEN AND LOCK SCREEN", WallpaperManager.BOTH_SCREENS)
+            onTap: () async => setWallpaper(context, widget.image, "HOME SCREEN AND LOCK SCREEN", WallpaperManager.BOTH_SCREEN)
           ),
         ],
       ),

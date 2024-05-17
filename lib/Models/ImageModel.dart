@@ -1,6 +1,6 @@
 class ImageModel
 {
-  String wallpaperImages;
+  String? wallpaperImages;
 
   ImageModel({this.wallpaperImages});
 

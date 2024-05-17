@@ -55,7 +55,7 @@ class _NationalSymbolsState extends State<NationalSymbols>
     );
   }
 
-  List<NationalDetailModel> categories;
+  List<NationalDetailModel>? categories;
   Future<List<NationalDetailModel>> getData(String page) async
   {
     Response response;
@@ -66,7 +66,7 @@ class _NationalSymbolsState extends State<NationalSymbols>
     if (statusCode == 200)
     {
       categories = (body as List).map((i) => NationalDetailModel.fromJson(i)).toList();
-      return categories;
+      return categories!;
     }
     else
     {
@@ -88,7 +88,7 @@ class _NationalSymbolsState extends State<NationalSymbols>
           itemBuilder: (BuildContext context, int index)
           {
             final value = data[index];
-            return ContactWidget(value.image, value.name,value.detail, value.link);
+            return ContactWidget(value.image!, value.name!, value.detail!, value.link!);
           }),
     );
   }
@@ -97,7 +97,7 @@ class _NationalSymbolsState extends State<NationalSymbols>
 // ignore: must_be_immutable
 class ContactWidget extends StatelessWidget
 {
-  String image, title, description, link;
+  String? image, title, description, link;
 
   ContactWidget(String image, String title, String description, String link)
   {
@@ -125,7 +125,7 @@ class ContactWidget extends StatelessWidget
                   child: SizedBox(
                     height: 150,
                     width: MediaQuery.of(context).size.width-40,
-                    child: ClipRRect(borderRadius: BorderRadius.circular(8.0),child: CustomCacheImage(imageUrl: image,))//Image.network(image, fit: BoxFit.fill,),
+                    child: ClipRRect(borderRadius: BorderRadius.circular(8.0),child: CustomCacheImage(imageUrl: image!,))//Image.network(image, fit: BoxFit.fill,),
                   ),
                 ),
                 ScrollOnExpand(
@@ -139,11 +139,11 @@ class ContactWidget extends StatelessWidget
                     header: Padding(
                         padding: EdgeInsets.all(10),
                         child: Text(
-                          title,
+                          title!,
                           style: TextStyle(fontSize: 20,color: Constants.OrangeColor, fontFamily: Constants.AppFont, fontWeight: FontWeight.bold),
                         )),
                     collapsed: Text(
-                      description,
+                      description!,
                       softWrap: true,
                       maxLines: 2,
                       style: TextStyle(fontSize: 15,color: Constants.GreenColor, fontFamily: Constants.AppFont),
@@ -156,7 +156,7 @@ class ContactWidget extends StatelessWidget
                         Padding(
                             padding: EdgeInsets.only(bottom: 10),
                             child: Text(
-                              description,
+                              description!,
                               softWrap: true,
                               style: TextStyle(fontSize: 15,color: Constants.GreenColor, fontFamily: Constants.AppFont),
                               overflow: TextOverflow.fade,
@@ -187,7 +187,7 @@ class ContactWidget extends StatelessWidget
                                       )
                                   )
                               ),
-                              onPressed: () => launchLink(link)
+                              onPressed: () => launchLink(link!)
                           ),
                         ),
                       ],

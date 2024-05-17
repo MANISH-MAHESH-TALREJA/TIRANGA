@@ -11,12 +11,12 @@ enum AnimType {
 }
 
 class InfiniteCards extends StatefulWidget {
-  final double width, height;
-  final Color background;
-  final InfiniteCardsController controller;
+  final double? width, height;
+  final Color? background;
+  final InfiniteCardsController? controller;
 
   InfiniteCards({
-    @required this.controller,
+    required this.controller,
     this.width,
     this.height,
     this.background,
@@ -28,9 +28,9 @@ class InfiniteCards extends StatefulWidget {
 
 class _InfiniteCardsState extends State<InfiniteCards>
     with TickerProviderStateMixin {
-  double _width, _height;
-  Color _background;
-  AnimHelper _helper;
+  double? _width, _height;
+  Color? _background;
+  AnimHelper? _helper;
 
   @override
   void initState() {
@@ -38,13 +38,13 @@ class _InfiniteCardsState extends State<InfiniteCards>
     //init background, helper, controller
     _background = widget.background ?? Color(0xffffffff);
     _helper = AnimHelper(
-        controller: widget.controller,
+        controller: widget.controller!,
         listenerForSetState: () {
           setState(() {});
         });
-    _helper.init(this, context);
+    _helper!.init(this, context);
     if (widget.controller != null) {
-      widget.controller.animHelper = _helper;
+      widget.controller!.animHelper = _helper!;
     }
   }
 
@@ -57,7 +57,7 @@ class _InfiniteCardsState extends State<InfiniteCards>
       height: _height,
       color: _background,
       child: Stack(
-        children: _helper.getCardList(_width, _height),
+        children: _helper!.getCardList(_width!, _height!),
       ),
     );
   }

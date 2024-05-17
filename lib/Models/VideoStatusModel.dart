@@ -1,8 +1,8 @@
 class VideoStatusModel
 {
-  String videoUrl;
-  String videoName;
-  String videoThumbnail;
+  String? videoUrl;
+  String? videoName;
+  String? videoThumbnail;
 
   VideoStatusModel({this.videoUrl, this.videoName, this.videoThumbnail});
 

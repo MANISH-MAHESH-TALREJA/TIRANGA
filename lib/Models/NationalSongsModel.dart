@@ -1,9 +1,9 @@
 class NationalSongsModel
 {
-  String link;
-  String name;
-  String hindi;
-  String english;
+  String? link;
+  String? name;
+  String? hindi;
+  String? english;
 
   NationalSongsModel({this.link, this.name, this.hindi, this.english});
 

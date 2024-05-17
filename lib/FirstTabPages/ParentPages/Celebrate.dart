@@ -1,6 +1,5 @@
 import 'package:animated_background/animated_background.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:audioplayer/audioplayer.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon/GeneralUtilityFunctions.dart';
 import 'package:pokemon/MainPages/Other/StartPage.dart';
@@ -14,6 +13,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../../Constants.dart';
+import '../../audio_player.dart';
 
 class Celebrate extends StatefulWidget
 {
@@ -24,7 +24,7 @@ class Celebrate extends StatefulWidget
 class _CelebrateState extends State<Celebrate> with TickerProviderStateMixin
 {
   AudioPlayer audioPlugin = AudioPlayer();
-  String mp3Uri;
+  String? mp3Uri;
   // ignore: non_constant_identifier_names
   List <String> national_anthem =
   [
@@ -80,7 +80,7 @@ class _CelebrateState extends State<Celebrate> with TickerProviderStateMixin
     mp3Uri = tempFile.uri.toString();
     if (mp3Uri != null)
     {
-      audioPlugin.play(mp3Uri, isLocal: true);
+      audioPlugin.play(mp3Uri!, isLocal: true);
     }
   }
 
@@ -92,11 +92,11 @@ class _CelebrateState extends State<Celebrate> with TickerProviderStateMixin
     super.dispose();
   }
 
-  DateTime currentBackPressTime;
+  DateTime? currentBackPressTime;
   Future<bool> onWillPop()
   {
     DateTime now = DateTime.now();
-    if (currentBackPressTime == null || now.difference(currentBackPressTime) > Duration(seconds: 2))
+    if (currentBackPressTime == null || now.difference(currentBackPressTime!) > Duration(seconds: 2))
     {
       currentBackPressTime = now;
       showToast(context, "PRESS BACK BUTTON AGAIN TO EXIT");
@@ -245,17 +245,17 @@ class RainParticleBehaviour extends RandomParticleBehaviour
   bool enabled;
   RainParticleBehaviour({
     ParticleOptions options = const ParticleOptions(),
-    Paint paint,
+    Paint? paint,
     this.enabled = true}) : assert(options != null), super(options: options, paint: paint);
 
   @override
   void initPosition(Particle p)
   {
-    p.cx = random.nextDouble() * size.width;
+    p.cx = random.nextDouble() * size!.width;
     if (p.cy == 0.0)
-      p.cy = random.nextDouble() * size.height;
+      p.cy = random.nextDouble() * size!.height;
     else
-      p.cy = random.nextDouble() * size.width * 0.2;
+      p.cy = random.nextDouble() * size!.width * 0.2;
   }
 
   @override
@@ -286,7 +286,7 @@ class RainParticleBehaviour extends RandomParticleBehaviour
   {
     RenderBox renderBox = context.findRenderObject() as RenderBox;
     var offset = renderBox.globalToLocal(offsetGlobal);
-    particles.forEach((particle)
+    particles!.forEach((particle)
     {
       var delta = (Offset(particle.cx, particle.cy) - offset);
       if (delta.distanceSquared < 70 * 70)

@@ -1,6 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pokemon/GeneralUtilityFunctions.dart';
@@ -10,6 +9,8 @@ import 'package:pokemon/MainPages/PortraitPages/FirstPage.dart';
 import '../../Constants.dart';
 import 'package:in_app_update/in_app_update.dart';
 
+import '../../bottom_navy_bar.dart';
+
 class PortraitMainPage extends StatefulWidget
 {
   @override
@@ -18,7 +19,7 @@ class PortraitMainPage extends StatefulWidget
 
 class _PortraitMainPageState extends State<PortraitMainPage>
 {
-  DateTime currentBackPressTime;
+  DateTime? currentBackPressTime;
   int _currentIndex = 0;
 
   @override
@@ -90,11 +91,13 @@ class _PortraitMainPageState extends State<PortraitMainPage>
           child: Column(
             children: <Widget>[
               AvatarGlow(
-                  endRadius: 75,
-                  duration: Duration(seconds: 2),
+                  //endRadius: 75,
+                  glowCount: 2,
+                  glowRadiusFactor: 0.4,
                   glowColor: Colors.orangeAccent,
+                  duration: const Duration(milliseconds: 2000),
                   repeat: true,
-                  repeatPauseDuration: Duration(seconds: 2),
+                  // repeatPauseDuration: Duration(seconds: 2),
                   startDelay: Duration(seconds: 1),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
@@ -275,7 +278,7 @@ class _PortraitMainPageState extends State<PortraitMainPage>
   Future<bool> onWillPop()
   {
     DateTime now = DateTime.now();
-    if (currentBackPressTime == null || now.difference(currentBackPressTime) > Duration(seconds: 2))
+    if (currentBackPressTime == null || now.difference(currentBackPressTime!) > Duration(seconds: 2))
     {
       currentBackPressTime = now;
       showToast(context, "PRESS BACK BUTTON AGAIN TO EXIT");

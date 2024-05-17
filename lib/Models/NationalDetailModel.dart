@@ -1,9 +1,9 @@
 class NationalDetailModel
 {
-  String name;
-  String detail;
-  String image;
-  String link;
+  String? name;
+  String? detail;
+  String? image;
+  String? link;
 
   NationalDetailModel({this.name, this.detail, this.image, this.link});
 

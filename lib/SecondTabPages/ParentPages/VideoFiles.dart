@@ -1,5 +1,5 @@
 import 'package:auto_animated/auto_animated.dart';
-import 'package:better_player/better_player.dart';
+import 'package:better_player_plus/better_player_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon/Constants.dart';
 import 'package:pokemon/GeneralUtilityFunctions.dart';
@@ -54,7 +54,7 @@ class _VideoFilesState extends State<VideoFiles>
     );
   }
 
-  List<VideoStatusModel> categories;
+  List<VideoStatusModel>? categories;
   Future<List<VideoStatusModel>> getProductList(String page) async
   {
     Response response;
@@ -65,7 +65,7 @@ class _VideoFilesState extends State<VideoFiles>
     if (statusCode == 200)
     {
       categories = (body as List).map((i) => VideoStatusModel.fromJson(i)).toList();
-      return categories;
+      return categories!;
     }
     else
     {
@@ -109,7 +109,7 @@ class _VideoFilesState extends State<VideoFiles>
                         borderRadius: BorderRadius.circular(8.0),
                         child: BetterPlayerListVideoPlayer(
                           BetterPlayerDataSource(
-                              BetterPlayerDataSourceType.network, value.videoUrl),
+                              BetterPlayerDataSourceType.network, value.videoUrl!),
                           configuration: BetterPlayerConfiguration(
                               controlsConfiguration: BetterPlayerControlsConfiguration(
                                   controlBarHeight: 35,
@@ -126,12 +126,12 @@ class _VideoFilesState extends State<VideoFiles>
                                     BetterPlayerOverflowMenuItem(
                                       Icons.download_sharp,
                                       "DOWNLOAD VIDEO STATUS",
-                                          () => saveMedia(context, value.videoUrl, "VIDEO STATUS", 'Movies'),
+                                          () => saveMedia(context, value.videoUrl!, "VIDEO STATUS", 'Movies'),
                                     ),
                                     BetterPlayerOverflowMenuItem(
                                       Icons.share_outlined,
                                       "SHARE VIDEO STATUS",
-                                          () => mediaShare(context, value.videoUrl, "VIDEO STATUS", "video"),
+                                          () => mediaShare(context, value.videoUrl!, "VIDEO STATUS", "video"),
                                     )
                                   ],
                                   enableSkips: false

@@ -1,22 +1,22 @@
-import 'package:androidversion/androidversion.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:toast/toast.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wallpaper_manager/wallpaper_manager.dart';
 import 'package:wc_flutter_share/wc_flutter_share.dart';
 import 'Constants.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
 import 'FirstTabPages/ParentPages/Celebrate.dart';
+import 'android_version.dart';
 
 void showToast(BuildContext context, String message)
 {
@@ -26,7 +26,7 @@ void showToast(BuildContext context, String message)
 Future<String> _findLocalPath() async
 {
   var directory = await getExternalStorageDirectory();
-  return directory.path;
+  return directory!.path;
 }
 
 Future<void> downloadMedia(BuildContext context, String url, String mediaFolder, String defaultFolder) async
@@ -172,11 +172,11 @@ void mediaShare(BuildContext context, String url, String media, String mediaType
   }
 }
 
-void launchLink(String link)
+Future<void> launchLink(String link) async
 {
-  if (canLaunch(link) != null)
+  if (await canLaunchUrl(Uri.parse(link)))
   {
-    launch(link);
+    launchLink(link);
   }
   else
   {
@@ -267,7 +267,7 @@ Future<dynamic> celebrateAlert(BuildContext context)
 {
   return showDialog(
       context: context,
-      builder: (_) => AssetGiffyDialog(
+      builder: (_) => GiffyDialog.image(Image.asset("assets/images/indian_flag.gif"),
         title: Text(
           'FOLLOW INSTRUCTIONS',
           textAlign: TextAlign.center,
@@ -276,23 +276,23 @@ Future<dynamic> celebrateAlert(BuildContext context)
               fontWeight: FontWeight.w600,
               color: Constants.OrangeColor),
         ),
-        description: Text(
+        content: Text(
           'STAND STRAIGHT, SING ALOUD AND WITH A FEELING OF TRUE PATRIOT',
           textAlign: TextAlign.center,
           style: TextStyle(
               color: Constants.GreenColor,
               fontWeight: FontWeight.bold),
         ),
-        entryAnimation: EntryAnimation.TOP_LEFT,
-        onOkButtonPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Celebrate())),
-        image: Image.asset("assets/images/indian_flag.gif"),
+        entryAnimation: EntryAnimation.topLeft,
+
+        //onOkButtonPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => Celebrate())),
       )
   );
 }
 
 Future<Map<dynamic, dynamic>> initPlatformState() async
 {
-  Map<dynamic, dynamic> info;
+  Map<dynamic, dynamic>? info;
   try
   {
     info = await AndroidInfo.version;
@@ -301,5 +301,5 @@ Future<Map<dynamic, dynamic>> initPlatformState() async
   {
     info = {'error': 'Failed to get platform version.'};
   }
-  return info;
+  return info!;
 }

@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'package:audioplayer/audioplayer.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pokemon/GeneralUtilityFunctions.dart';
 import '../../Constants.dart';
+import '../../audio_player.dart';
 
 typedef void OnError(Exception exception);
 
@@ -26,37 +25,37 @@ class _AudioAppState extends State<AudioApp>
     initAudioPlayer();
   }
 
-  Duration duration;
-  Duration position;
-  AudioPlayer audioPlayer;
-  String localFilePath;
+  Duration? duration;
+  Duration? position;
+  AudioPlayer? audioPlayer;
+  String? localFilePath;
   PlayerState playerState = PlayerState.stopped;
   get isPlaying => playerState == PlayerState.playing;
   get isPaused => playerState == PlayerState.paused;
   get durationText => duration != null ? duration.toString().split('.').first.replaceFirst("0:", "") : '';
   get positionText => position != null ? position.toString().split('.').first.replaceFirst("0:", "") : '';
-  StreamSubscription _positionSubscription;
-  StreamSubscription _audioPlayerStateSubscription;
+  StreamSubscription? _positionSubscription;
+  StreamSubscription? _audioPlayerStateSubscription;
 
   @override
   void dispose()
   {
-    _positionSubscription.cancel();
-    _audioPlayerStateSubscription.cancel();
-    audioPlayer.stop();
+    _positionSubscription!.cancel();
+    _audioPlayerStateSubscription!.cancel();
+    audioPlayer!.stop();
     super.dispose();
   }
 
   void initAudioPlayer()
   {
     audioPlayer = AudioPlayer();
-    _positionSubscription = audioPlayer.onAudioPositionChanged.listen((p) => setState(() => position = p));
+    _positionSubscription = audioPlayer!.onAudioPositionChanged.listen((p) => setState(() => position = p));
     _audioPlayerStateSubscription =
-        audioPlayer.onPlayerStateChanged.listen((s)
+        audioPlayer!.onPlayerStateChanged.listen((s)
         {
           if (s == AudioPlayerState.PLAYING)
           {
-            setState(() => duration = audioPlayer.duration);
+            setState(() => duration = audioPlayer!.duration);
           }
           else if (s == AudioPlayerState.STOPPED)
           {
@@ -81,7 +80,7 @@ class _AudioAppState extends State<AudioApp>
   {
     if(await check())
     {
-      await audioPlayer.play(ringUrl);
+      await audioPlayer!.play(ringUrl);
       setState(()
       {
         playerState = PlayerState.playing;
@@ -95,7 +94,7 @@ class _AudioAppState extends State<AudioApp>
 
   Future stop() async
   {
-    await audioPlayer.stop();
+    await audioPlayer!.stop();
     setState(()
     {
       playerState = PlayerState.stopped;
@@ -130,7 +129,7 @@ class _AudioAppState extends State<AudioApp>
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: CircularProgressIndicator(
-                      value: position != null && position.inMilliseconds > 0 ? (position?.inMilliseconds?.toDouble() ?? 0.0) / (duration?.inMilliseconds?.toDouble() ?? 0.0) : 0.0,
+                      value: position != null && position!.inMilliseconds > 0 ? (position?.inMilliseconds.toDouble() ?? 0.0) / (duration?.inMilliseconds.toDouble() ?? 0.0) : 0.0,
                       valueColor: AlwaysStoppedAnimation(Constants.BlueColor),
                       backgroundColor: Colors.grey[500],
                     ),
@@ -174,9 +173,9 @@ class _AudioAppState extends State<AudioApp>
                   ),
                 ),
                 style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                    backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                    backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                    shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.00),
                             side: BorderSide(color: Constants.GreenColor)

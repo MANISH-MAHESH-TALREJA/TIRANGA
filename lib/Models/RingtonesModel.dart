@@ -1,7 +1,7 @@
 class RingtonesModel
 {
-  String audioLink;
-  String audioName;
+  String? audioLink;
+  String? audioName;
 
   RingtonesModel({this.audioLink, this.audioName});
 

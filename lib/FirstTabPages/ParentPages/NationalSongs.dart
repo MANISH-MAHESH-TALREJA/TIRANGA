@@ -54,7 +54,7 @@ class _NationalSongsState extends State<NationalSongs>
     );
   }
 
-  List<NationalSongsModel> categories;
+  List<NationalSongsModel>? categories;
   Future<List<NationalSongsModel>> getProductList(String page) async
   {
     Response response;
@@ -65,7 +65,7 @@ class _NationalSongsState extends State<NationalSongs>
     if (statusCode == 200)
     {
       categories = (body as List).map((i) => NationalSongsModel.fromJson(i)).toList();
-      return categories;
+      return categories!;
     }
     else
     {
@@ -77,7 +77,7 @@ class _NationalSongsState extends State<NationalSongs>
   Widget TirangaCard(int index, NationalSongsModel value, Orientation orientation)
   {
     return GestureDetector(
-      onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (context) => NationalSongsOutput(value.name, value.link, value.english, value.hindi))) : showToast(context, "INTERNET CONNECTION UNAVAILABLE"),
+      onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (context) => NationalSongsOutput(value.name!, value.link!, value.english!, value.hindi!))) : showToast(context, "INTERNET CONNECTION UNAVAILABLE"),
       child: Padding(
         padding: const EdgeInsets.all(5.0),
         child: Card(
@@ -108,7 +108,7 @@ class _NationalSongsState extends State<NationalSongs>
                           textDirection : TextDirection.ltr,
                           animationDuration: Duration(seconds: 3),
                           directionMarguee: DirectionMarguee.oneDirection,
-                          child: Text(value.name.toUpperCase(), maxLines: 2, //textAlign: TextAlign.center,
+                          child: Text(value.name!.toUpperCase(), maxLines: 2, //textAlign: TextAlign.center,
                               style: TextStyle(fontSize: 20,color: (index+1)%2==0?Constants.BlueColor:Colors.white, fontFamily: Constants.AppFont, fontWeight: FontWeight.bold)
                           )
                       )

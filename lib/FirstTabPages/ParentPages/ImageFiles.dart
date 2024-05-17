@@ -54,7 +54,7 @@ class _ImageFilesState extends State<ImageFiles>
     );
   }
 
-  List<ImageModel> categories;
+  List<ImageModel>? categories;
   Future<List<ImageModel>> getProductList(String page) async
   {
     Response response;
@@ -65,7 +65,7 @@ class _ImageFilesState extends State<ImageFiles>
     if (statusCode == 200)
     {
       categories = (body as List).map((i) => ImageModel.fromJson(i)).toList();
-      return categories;
+      return categories!;
     }
     else
     {
@@ -89,7 +89,7 @@ class _ImageFilesState extends State<ImageFiles>
         return Padding(
           padding: const EdgeInsets.all(5.0),
           child: GestureDetector(
-            onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (context) => ImageOutput(image: value.wallpaperImages,imageType: widget.imageType,))) : showToast(context, "INTERNET CONNECTION UNAVAILABLE"),
+            onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (context) => ImageOutput(image: value.wallpaperImages!,imageType: widget.imageType,))) : showToast(context, "INTERNET CONNECTION UNAVAILABLE"),
             child: Card(
               elevation: 2,
               shape: RoundedRectangleBorder(
@@ -100,7 +100,7 @@ class _ImageFilesState extends State<ImageFiles>
                 height: orientation==Orientation.portrait? _width - 50 : MediaQuery.of(context).size.width / 4 -50,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: CustomCacheImage(imageUrl: value.wallpaperImages,)//Image.network(value.wallpaperImages, fit: BoxFit.fill,)
+                    child: CustomCacheImage(imageUrl: value.wallpaperImages!,)//Image.network(value.wallpaperImages, fit: BoxFit.fill,)
                 ),
               ),
             ),
