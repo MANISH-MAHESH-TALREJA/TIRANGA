@@ -14,6 +14,7 @@ class Constants
   static const ShayariAPI              =   "https://api.npoint.io/3e1f71e5bc2dbd720fb5";
 
   static const AppName                 =    "TIRANGA";
+  static const AppNotificationKey      =    "TIRANGA";
   static const AppFont                 =    "Poppins";
   static const AppIcon                 =    "assets/images/app_icon.png";
   static const AppVersion              =    "2022-08-05";

@@ -1,11 +1,11 @@
+import 'package:another_carousel_pro/another_carousel_pro.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/constants.dart';
 import 'package:pokemon/first_tab_pages/parent_pages/image_files.dart';
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:toast/toast.dart';
-import '../../carousel_pro/src/carousel_pro.dart';
 import 'third_page.dart';
 
 class FirstPage extends StatelessWidget
@@ -23,9 +23,9 @@ class FirstPage extends StatelessWidget
         SizedBox(
             height: MediaQuery.of(context).size.height/4.35,
             width: MediaQuery.of(context).size.width - 25,
-            child: const Carousel(
+            child: AnotherCarousel(
               images:
-              [
+              const [
                 CachedNetworkImageProvider(Constants.BannerNetworkImage_01),
                 CachedNetworkImageProvider(Constants.BannerNetworkImage_02),
                 CachedNetworkImageProvider(Constants.BannerNetworkImage_03),
@@ -42,7 +42,7 @@ class FirstPage extends StatelessWidget
               indicatorBgPadding: 0.0,
               moveIndicatorFromBottom: 10.0,
               boxFit: BoxFit.fill,
-              defaultImage: AssetImage("assets/images/flag.jpg"),
+              defaultImage: const AssetImage("assets/images/flag.jpg"),
               noRadiusForIndicator: true,
               overlayShadow: true,
               overlayShadowColors: Colors.transparent,

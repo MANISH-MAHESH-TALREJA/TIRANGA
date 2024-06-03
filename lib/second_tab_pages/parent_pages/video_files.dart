@@ -1,6 +1,6 @@
 import 'package:auto_animated/auto_animated.dart';
-import 'package:better_player/better_player.dart';
-import 'package:flutter/material.dart';
+import 'package:better_player_plus/better_player_plus.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/constants.dart';
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:http/http.dart';
@@ -111,7 +111,7 @@ class _VideoFilesState extends State<VideoFiles>
                           configuration: BetterPlayerConfiguration(
                               controlsConfiguration: BetterPlayerControlsConfiguration(
                                   controlBarHeight: 35,
-                                  iconsColor: Constants.BlueColor,
+                                  iconsColor: Constants.WhiteColor,
                                   enableFullscreen: false,
                                   enableSubtitles: false,
                                   enableQualities: false,
@@ -129,7 +129,7 @@ class _VideoFilesState extends State<VideoFiles>
                                     BetterPlayerOverflowMenuItem(
                                       Icons.share_outlined,
                                       "SHARE VIDEO STATUS",
-                                          () => mediaShare(context, value.videoUrl!, "VIDEO STATUS", "video"),
+                                          () => mediaShare(value.videoUrl!, "VIDEO STATUS", "video"),
                                     )
                                   ],
                                   enableSkips: false

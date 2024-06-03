@@ -1,6 +1,6 @@
 import 'dart:convert';
 // ignore_for_file: depend_on_referenced_packages
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/flutter_html/rich_text_parser.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as parser;

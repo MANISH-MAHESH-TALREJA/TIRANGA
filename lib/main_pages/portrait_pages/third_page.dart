@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 import 'package:animated_background/animated_background.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/constants.dart';
 import 'package:toast/toast.dart';
 import '../../infinite_cards/src/anim_transform.dart';
@@ -119,12 +119,12 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                         },
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Icon(Icons.arrow_back_outlined, color: Colors.white,),
-                              const SizedBox(width: 5,),
+                            children: const <Widget>[
+                              Icon(Icons.arrow_back_outlined, color: Colors.white,),
+                              SizedBox(width: 5,),
                               Text(
                                   "PREV",
-                                  style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
+                                  style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                               ),
                             ]
                         )
@@ -143,12 +143,12 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                         onPressed: () => _changeType(context),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Icon(Icons.refresh, color: Colors.white,),
-                              const SizedBox(width: 5,),
+                            children: const <Widget>[
+                              Icon(Icons.refresh, color: Colors.white,),
+                              SizedBox(width: 5,),
                               Text(
                                   "RESET",
-                                  style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
+                                  style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                               ),
                             ]
                         )
@@ -171,12 +171,12 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                         },
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              const Icon(Icons.arrow_forward_rounded, color: Colors.white,),
-                              const SizedBox(width: 5,),
+                            children: const <Widget>[
+                              Icon(Icons.arrow_forward_rounded, color: Colors.white,),
+                              SizedBox(width: 5,),
                               Text(
                                   "NEXT",
-                                  style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
+                                  style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                               ),
                             ]
                         )
@@ -238,12 +238,12 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                           },
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                const Icon(Icons.arrow_back_outlined, color: Colors.white,),
-                                const SizedBox(width: 5,),
+                              children: const <Widget>[
+                                Icon(Icons.arrow_back_outlined, color: Colors.white,),
+                                SizedBox(width: 5,),
                                 Text(
                                     "PREV",
-                                    style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
+                                    style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                                 ),
                               ]
                           )
@@ -262,12 +262,12 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                           onPressed: () => _changeType(context),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                const Icon(Icons.refresh, color: Colors.white,),
-                                const SizedBox(width: 5,),
+                              children: const <Widget>[
+                                Icon(Icons.refresh, color: Colors.white,),
+                                SizedBox(width: 5,),
                                 Text(
                                     "RESET",
-                                    style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
+                                    style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                                 ),
                               ]
                           )
@@ -290,12 +290,12 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                           },
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                const Icon(Icons.arrow_forward_rounded, color: Colors.white,),
-                                const SizedBox(width: 5,),
+                              children: const <Widget>[
+                                Icon(Icons.arrow_forward_rounded, color: Colors.white,),
+                                SizedBox(width: 5,),
                                 Text(
                                     "NEXT",
-                                    style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
+                                    style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                                 ),
                               ]
                           )

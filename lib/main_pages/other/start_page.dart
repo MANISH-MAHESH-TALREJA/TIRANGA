@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:toast/toast.dart';
 
 import '../../main_pages/home_pages/horizontal_main_page.dart';

@@ -1,5 +1,5 @@
 import 'package:expandable/expandable.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/main_pages/other/app_bar_drawer.dart';
 import 'package:http/http.dart';
 import 'package:pokemon/models/national_detail_model.dart';
@@ -171,12 +171,12 @@ class ContactWidget extends StatelessWidget
                                 width: 160,
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      const Icon(Icons.info_outline, color: Colors.white,),
-                                      const SizedBox(width: 10,),
+                                    children: const <Widget>[
+                                      Icon(Icons.info_outline, color: Colors.white,),
+                                      SizedBox(width: 10,),
                                       Text(
                                           "READ MORE",
-                                          style: const TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
+                                          style: TextStyle(fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold)
                                       ),
                                     ]
                                 ),

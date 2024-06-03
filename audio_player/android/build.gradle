@@ -1,39 +1,43 @@
-group 'net.manish.audio_player'
+group 'net.manish.audio'
 version '1.0'
 
 buildscript {
+    ext {
+        agp_version = '8.4.1'
+    }
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
+        classpath "com.android.tools.build:gradle:$agp_version"
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 33
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
+    compileSdk 34
+    namespace "net.manish.audio"
 
     defaultConfig {
         minSdkVersion 21
     }
+    lintOptions {
+        disable 'InvalidPackage'
+    }
 }
 
 dependencies {
-    implementation 'org.jetbrains:annotations:15.0'
+    implementation 'com.android.support:support-annotations:28.0.0'
+    implementation 'com.google.code.gson:gson:2.11.0'
+    // implementation files('C:/FLUTTER/bin/cache/artifacts/engine/android-x64-release/flutter.jar')
 }

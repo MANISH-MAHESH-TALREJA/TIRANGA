@@ -6,7 +6,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.18.0-165.1.beta <3.0.0'
+  sdk: '>=3.4.0 <4.0.0'
 
 dependencies:
   flutter:
@@ -14,40 +14,44 @@ dependencies:
   audio_player:
     path: ./audio_player
 
-  shimmer: ^2.0.0
-  auto_animated: ^3.0.1
+  shimmer: ^3.0.0
+  auto_animated: ^3.2.0
+  another_carousel_pro: ^1.0.2
   quds_popup_menu: ^0.0.1+1
-  flutter_file_downloader: ^1.1.0+1
+  flutter_file_downloader: ^2.0.0-dev.1
   marquee_widget: ^1.2.0
   toast: ^0.3.0
-  modal_bottom_sheet: ^2.1.0
-  avatar_glow: ^2.0.2
-  url_launcher: ^6.1.5
-  wallpaper_manager_flutter: ^0.0.2
+  modal_bottom_sheet: ^3.0.0
+  avatar_glow: ^3.0.1
+  url_launcher: ^6.2.6
   animated_background: ^2.0.0
   expandable: ^5.0.1
-  esys_flutter_share_plus: ^2.1.1
-  flip_card: ^0.6.0
-  better_player: ^0.0.83
+  esys_flutter_share_plus: ^2.2.0
+  flip_card: ^0.7.0
+  better_player_plus: ^1.0.7
   animated_text_kit: ^4.2.2
-  giff_dialog: ^1.0.1
-  cached_network_image: ^3.2.1
-  http: ^0.13.5
-  firebase_messaging: ^12.0.1
-  rflutter_alert: ^2.0.4
-  permission_handler: ^10.0.0
-  flutter_speed_dial: ^6.0.0
-  bottom_navy_bar: ^6.0.0
-  flutter_cache_manager: ^3.3.0
-  in_app_update: ^3.0.0
-  cross_connectivity: ^3.0.5
+  giffy_dialog: ^2.1.0
+  cached_network_image: ^3.3.1
+  http: ^1.2.1
+  firebase_messaging: ^14.9.4
+  rflutter_alert: ^2.0.7
+  permission_handler: ^11.3.1
+  flutter_speed_dial: ^7.0.0
+  in_app_update: ^4.2.2
+  cross_connectivity: ^3.2.0
   contained_tab_bar_view: ^0.8.0
-  ringtone_set: ^0.0.3
+  open_file: ^3.3.2
+  awesome_notifications: ^0.9.3+1
+  wallpaper: ^1.1.1
+  searchable_listview: ^2.14.0
+  firebase_core: ^2.32.0
+  device_info_plus: ^10.1.0
+  set_ringtone: ^1.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.1
+  flutter_lints: ^4.0.0
 
 flutter:
   uses-material-design: true

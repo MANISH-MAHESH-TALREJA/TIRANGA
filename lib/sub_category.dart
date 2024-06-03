@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:pokemon/second_tab_pages/parent_pages/ringtones_files.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
+import 'package:pokemon/second_tab_pages/parent_pages/ringtones_list.dart';
 import 'package:pokemon/second_tab_pages/parent_pages/video_files.dart';
 import 'package:toast/toast.dart';
 import 'constants.dart';
 import 'first_tab_pages/parent_pages/image_files.dart';
-import 'first_tab_pages/parent_pages/national_songs.dart';
+import 'first_tab_pages/parent_pages/national_songs_list.dart';
 import 'general_utility_functions.dart';
 import 'main_pages/other/app_bar_drawer.dart';
 import 'main_pages/portrait_pages/second_page.dart';
@@ -37,7 +37,7 @@ class SubCategoryState extends State<SubCategory>
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: <Widget>
                       [
-                        LandScapeCard("assets/images/butterfly.gif", "SONGS", NationalSongs(Constants.NationalSongsAPI, Constants.AppBarSongs), true),
+                        LandScapeCard("assets/images/butterfly.gif", "SONGS", NationalSongsList(Constants.NationalSongsAPI, Constants.AppBarSongs), true),
                         LandScapeCard("assets/images/heart.gif", "WALLPAPER", ImageFiles(Constants.WallpaperAPI, Constants.AppBarWallpaper,"WALLPAPERS"), false),
                       ],
                     ),
@@ -46,7 +46,7 @@ class SubCategoryState extends State<SubCategory>
                       children: <Widget>
                       [
                         LandScapeCard("assets/images/circle.gif", "STATUS", VideoFiles(Constants.VideoStatusAPI, Constants.AppBarStatus), false),
-                        LandScapeCard("assets/images/box.gif", "RINGTONE", RingtoneFiles(Constants.RingtoneAPI, Constants.AppBarRingtone), true),
+                        LandScapeCard("assets/images/box.gif", "RINGTONE", RingtonesList(Constants.RingtoneAPI, Constants.AppBarRingtone), true),
                       ],
                     ),
                   ],

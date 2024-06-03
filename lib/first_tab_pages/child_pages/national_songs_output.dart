@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:audio_player/audio_player.dart';
+import 'package:audio_player/audioplayer.dart';
 import 'package:flip_card/flip_card.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:pokemon/main_pages/other/app_bar_drawer.dart';
@@ -59,11 +59,11 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
     _audioPlayerStateSubscription =
         audioPlayer!.onPlayerStateChanged.listen((s)
         {
-          if (s == AudioPlayerState.playing)
+          if (s == AudioPlayerState.PLAYING)
           {
             setState(() => duration = audioPlayer!.duration);
           }
-          else if (s == AudioPlayerState.stopped)
+          else if (s == AudioPlayerState.STOPPED)
           {
             onComplete();
             setState(()
@@ -183,9 +183,9 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>
                 [
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>
+                    children: <Widget>
                     [
                       Icon(Icons.swipe, color: Constants.BlueColor,),
                       SizedBox(width: 5,),
@@ -238,7 +238,7 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
                         color: Colors.red,
                       ),
                       IconButton(
-                        onPressed: () async => saveMedia(context, widget.url, "NATIONAL SONGS",'Music'),
+                        onPressed: () async => saveMedia(context, widget.url, "NATIONAL SONG",'Music'),
                         iconSize: 30,
                         icon: const Icon(Icons.arrow_circle_down_outlined),
                         color: Constants.GreenColor,

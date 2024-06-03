@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/main_pages/other/app_bar_drawer.dart';
 import 'package:http/http.dart';
 import 'package:pokemon/models/image_model.dart';

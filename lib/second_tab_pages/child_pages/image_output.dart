@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:pokemon/constants.dart';
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:toast/toast.dart';
-import 'package:wallpaper_manager_flutter/wallpaper_manager_flutter.dart';
 
 import '../../main_pages/other/app_bar_drawer.dart';
 
@@ -70,35 +69,35 @@ class ImageOutputState extends State<ImageOutput>
               backgroundColor: Colors.yellow,
               label: 'SAVE TO GALLERY',
               labelStyle: const TextStyle(fontSize: 18.0),
-              onTap: () async => saveMedia(context, widget.image, "IMAGES",'Pictures')
+              onTap: () async => saveMedia(context, widget.image, widget.imageType,'Pictures')
           ),
           SpeedDialChild(
               child: const Icon(Icons.share),
               backgroundColor: Colors.red,
               label: 'SHARE ${widget.imageType}',
               labelStyle: const TextStyle(fontSize: 18.0),
-              onTap: () => mediaShare(context, widget.image, widget.imageType, "image")
+              onTap: () => mediaShare(widget.image, widget.imageType, "image")
           ),
           SpeedDialChild(
             child: const Icon(Icons.home),
             backgroundColor: Colors.blue,
             label: 'SET AS HOME SCREEN',
             labelStyle: const TextStyle(fontSize: 18.0),
-            onTap: () async => setWallpaper(context, widget.image, "HOME SCREEN", WallpaperManagerFlutter.HOME_SCREEN)
+            onTap: () async => setWallpaper(context, widget.image, "HOME SCREEN", 1)
           ),
           SpeedDialChild(
             child: const Icon(Icons.lock),
             backgroundColor: Constants.GreenColor,
             label: 'SET AS LOCK SCREEN',
             labelStyle: const TextStyle(fontSize: 18.0),
-            onTap: () async => setWallpaper(context, widget.image, "LOCK SCREEN", WallpaperManagerFlutter.LOCK_SCREEN)
+            onTap: () async => setWallpaper(context, widget.image, "LOCK SCREEN", 2)
           ),
           SpeedDialChild(
             child: const Icon(Icons.mobile_friendly),
             backgroundColor: Colors.pinkAccent,
             label: 'SET AS BOTH SCREENS',
             labelStyle: const TextStyle(fontSize: 18.0),
-            onTap: () async => setWallpaper(context, widget.image, "HOME SCREEN AND LOCK SCREEN", WallpaperManagerFlutter.BOTH_SCREENS)
+            onTap: () async => setWallpaper(context, widget.image, "HOME SCREEN AND LOCK SCREEN", 3)
           ),
         ],
       ),

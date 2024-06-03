@@ -1,13 +1,14 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:avatar_glow/avatar_glow.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:flutter/material.dart';
+
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:flutter/services.dart';
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:toast/toast.dart';
+import '../../bottom_navy_bar.dart';
 import '../../constants.dart';
 import '../other/app_bar_drawer.dart';
-import 'package:in_app_update/in_app_update.dart';
+//import 'package:in_app_update/in_app_update.dart';
 
 import '../portrait_pages/first_page.dart';
 import '../portrait_pages/second_page.dart';
@@ -30,7 +31,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
   {
     super.initState();
     ToastContext().init(context);
-    InAppUpdate.checkForUpdate();
+    // InAppUpdate.checkForUpdate();
   }
 
   @override
@@ -95,46 +96,48 @@ class PortraitMainPageState extends State<PortraitMainPage>
           child: Column(
             children: <Widget>[
               AvatarGlow(
-                  endRadius: 75,
-                  duration: const Duration(seconds: 2),
+                //endRadius: 75,
+                  glowCount: 2,
+                  glowRadiusFactor: 0.4,
                   glowColor: Colors.orangeAccent,
+                  duration: const Duration(milliseconds: 2000),
                   repeat: true,
-                  repeatPauseDuration: const Duration(seconds: 2),
-                  startDelay: const Duration(seconds: 1),
+                  // repeatPauseDuration: Duration(seconds: 2),
+                  startDelay: Duration(seconds: 1),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
                     radius: 50,
                     child: Image.asset(
                       "assets/images/app_icon.png",
-                      height: 100,
+                      height: 125,
                       fit: BoxFit.fill,
-                      width: 250,
+                      width: 300,
                     ),
                   )
               ),
-            Padding(
-              padding: const EdgeInsets.only(bottom:20.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width-25,
-                child: TyperAnimatedTextKit(
-                  onTap: () => showToast("HAPPY INDEPENDENCE DAY"),
-                  speed: const Duration(milliseconds: 250),
-                  isRepeatingAnimation: true,
-                  repeatForever: true,
-                  text: const [
-                    "TIRANGA",
-                    "MANISH MAHESH TALREJA",
-                  ],
-                  textStyle: const TextStyle(
+              Padding(
+                padding: const EdgeInsets.only(bottom:20.0, top: 50.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width-25,
+                  child: TyperAnimatedTextKit(
+                    onTap: () => showToast("HAPPY INDEPENDENCE DAY"),
+                    speed: const Duration(milliseconds: 250),
+                    isRepeatingAnimation: true,
+                    repeatForever: true,
+                    text: const [
+                      "TIRANGA",
+                      "MANISH MAHESH TALREJA",
+                    ],
+                    textStyle: const TextStyle(
                       fontSize: 20.0,
-                      fontFamily: "Poppins",
+                      fontFamily: "Tahoma",
                       color: Constants.GreenColor,
-                  fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ),
-            ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2.5),
                 child: Card(
@@ -188,7 +191,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
                   ),
                 ),
               ),
-              Padding(
+              /*Padding(
                 padding: const EdgeInsets.symmetric(horizontal:8.0, vertical: 2.5),
                 child: Card(
                   elevation: 2,
@@ -202,7 +205,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
                     onTap: () => launchLink(Constants.AppPlayStoreLink),
                   ),
                 ),
-              ),
+              ),*/
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal:8.0, vertical: 2.5),
                 child: Card(

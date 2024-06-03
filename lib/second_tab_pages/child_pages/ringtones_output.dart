@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'package:audio_player/audio_player.dart';
-import 'package:flutter/material.dart';
+import 'package:audio_player/audioplayer.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:quds_popup_menu/quds_popup_menu.dart';
-import 'package:ringtone_set/ringtone_set.dart';
 import 'package:toast/toast.dart';
 import '../../constants.dart';
 
@@ -57,11 +56,11 @@ class AudioAppState extends State<AudioApp>
     _audioPlayerStateSubscription =
         audioPlayer!.onPlayerStateChanged.listen((s)
         {
-          if (s == AudioPlayerState.playing)
+          if (s == AudioPlayerState.PLAYING)
           {
             setState(() => duration = audioPlayer!.duration);
           }
-          else if (s == AudioPlayerState.stopped)
+          else if (s == AudioPlayerState.STOPPED)
           {
             onComplete();
             setState(()
@@ -198,7 +197,7 @@ class AudioAppState extends State<AudioApp>
                   color: Colors.red,
                 ),
                 IconButton(
-                  onPressed: () async => saveMedia(context, widget.url, "RINGTONES", 'Music'),
+                  onPressed: () async => saveMedia(context, widget.url, "RINGTONE", 'Music'),
                   iconSize: 35,
                   icon: const Icon(Icons.file_download),
                   color: Constants.GreenColor,
@@ -213,9 +212,9 @@ class AudioAppState extends State<AudioApp>
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: ElevatedButton(
                       style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                          backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                          backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.00),
                                   side: const BorderSide(color: Constants.GreenColor)
@@ -226,14 +225,14 @@ class AudioAppState extends State<AudioApp>
                       child: QudsPopupButton(
                         tooltip: 'SET RINGTONE',
                         items: getMenuItems(),
-                        child: Row(
+                        child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              const Icon(Icons.library_music_outlined, color: Colors.white, size: 20,),
-                              const SizedBox(width: 10,),
+                              Icon(Icons.library_music_outlined, color: Colors.white, size: 20,),
+                              SizedBox(width: 10,),
                               Text(
                                   "SET RINGTONE",
-                                  style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
+                                  style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
                               ),
                             ]
                         ),
@@ -244,24 +243,24 @@ class AudioAppState extends State<AudioApp>
                   padding: const EdgeInsets.only(right: 8.0),
                   child: ElevatedButton(
                       style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                          backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                          backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.00),
                                   side: const BorderSide(color: Constants.GreenColor)
                               )
                           )
                       ),
-                      onPressed: () => mediaShare(context, widget.url, "RINGTONES", "audio"),
-                      child: Row(
+                      onPressed: () => mediaShare(widget.url, "RINGTONES", "audio"),
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            const Icon(Icons.share_rounded, color: Colors.white, size: 20,),
-                            const SizedBox(width: 10,),
+                            Icon(Icons.share_rounded, color: Colors.white, size: 20,),
+                            SizedBox(width: 10,),
                             Text(
                                 "SHARE RINGTONE",
-                                style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
+                                style: TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)
                             ),
                           ]
                       )

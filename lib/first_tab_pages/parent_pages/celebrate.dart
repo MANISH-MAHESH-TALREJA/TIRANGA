@@ -1,7 +1,7 @@
 import 'package:animated_background/animated_background.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:audio_player/audio_player.dart';
-import 'package:flutter/material.dart';
+import 'package:audio_player/audioplayer.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:pokemon/main_pages/other/start_page.dart';
 import 'dart:math' as math;

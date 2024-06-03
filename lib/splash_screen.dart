@@ -1,8 +1,12 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pokemon/main_pages/Other/start_page.dart';
 import 'package:toast/toast.dart';
 import 'constants.dart';
+import 'general_utility_functions.dart';
+import 'notification_utility.dart';
 
 class SplashScreen extends StatefulWidget
 {
@@ -24,9 +28,27 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
     return Timer(duration, navigationPage);
   }
 
-  void navigationPage()
-  {
-    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+  Future<void> navigationPage()
+  async {
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+    if(androidInfo.version.sdkInt >= 33.0)
+    {
+      PermissionStatus permissionStatus = await Permission.notification.status;
+      if(permissionStatus.isGranted)
+      {
+        debugPrint("PERMISSION GRANTED");
+        // showToast(context, "HAPPY INDEPENDENCE DAY");
+      }
+      else
+      {
+        await Permission.notification.request();
+      }
+    }
+    Future.delayed(Duration.zero, () {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const HomePage()));
+    });
+
   }
 
   @override
@@ -34,6 +56,10 @@ class SplashScreenState extends State<SplashScreen> with SingleTickerProviderSta
   {
     super.initState();
     ToastContext().init(context);
+    Future.delayed(Duration.zero, ()
+    {
+      NotificationUtility.setUpNotificationService(context);
+    });
     animationController = AnimationController(vsync: this, duration: const Duration(seconds: 2));
     animation = CurvedAnimation(parent: animationController!, curve: Curves.easeOut);
 

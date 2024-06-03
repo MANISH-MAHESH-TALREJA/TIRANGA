@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:pokemon/constants.dart';
 import 'package:pokemon/sub_category.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:toast/toast.dart';
 import '../../general_utility_functions.dart';
-import 'package:in_app_update/in_app_update.dart';
+//import 'package:in_app_update/in_app_update.dart';
 import '../other/app_bar_drawer.dart';
 import '../../first_tab_pages/parent_pages/image_files.dart';
 import '../../first_tab_pages/parent_pages/national_symbols.dart';
@@ -26,7 +26,7 @@ class HorizontalMainPageState extends State<HorizontalMainPage>
   {
     super.initState();
     ToastContext().init(context);
-    InAppUpdate.checkForUpdate();
+    //InAppUpdate.checkForUpdate();
   }
 
   @override
