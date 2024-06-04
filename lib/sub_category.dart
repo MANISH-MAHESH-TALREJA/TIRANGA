@@ -61,7 +61,11 @@ class SubCategoryState extends State<SubCategory>
   Widget LandScapeCard(String image, String title, Widget ReturnWidget, bool fill)
   {
     return GestureDetector(
-      onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder : (BuildContext context)=>ReturnWidget)) : showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
+      onTap: () async => await check() ? Future.delayed(Duration.zero, () {
+
+        Navigator.push(context, MaterialPageRoute(builder : (BuildContext context)=>ReturnWidget));
+
+      }): showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
       child: Container(
           padding: const EdgeInsets.all(8),
           height: MediaQuery.of(context).size.height/2-55,

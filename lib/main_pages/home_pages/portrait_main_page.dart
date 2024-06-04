@@ -3,6 +3,7 @@ import 'package:avatar_glow/avatar_glow.dart';
 
 import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
 import 'package:flutter/services.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:pokemon/general_utility_functions.dart';
 import 'package:toast/toast.dart';
 import '../../bottom_navy_bar.dart';
@@ -23,7 +24,6 @@ class PortraitMainPage extends StatefulWidget
 
 class PortraitMainPageState extends State<PortraitMainPage>
 {
-  DateTime? currentBackPressTime;
   int _currentIndex = 0;
 
   @override
@@ -31,7 +31,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
   {
     super.initState();
     ToastContext().init(context);
-    // InAppUpdate.checkForUpdate();
+    InAppUpdate.checkForUpdate();
   }
 
   @override
@@ -72,13 +72,39 @@ class PortraitMainPageState extends State<PortraitMainPage>
             ),
           ],
         ),
-        body: WillPopScope(
-            onWillPop: onWillPop,
+        body: PopScope(
+            canPop: canPopNow,
+            onPopInvoked: onPopInvoked,
             child: changePage()
         )
     );
   }
 
+  DateTime? currentBackPressTime;
+  bool canPopNow = false;
+  int requiredSeconds = 2;
+  void onPopInvoked(bool didPop) {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime!) >
+            Duration(seconds: requiredSeconds)) {
+      currentBackPressTime = now;
+      showToast("PRESS BACK BUTTON AGAIN TO EXIT");
+      Future.delayed(
+        Duration(seconds: requiredSeconds),
+            () {
+          // Disable pop invoke and close the toast after 2s timeout
+          setState(() {
+            canPopNow = false;
+          });
+        },
+      );
+      // Ok, let user exit app on the next back press
+      setState(() {
+        canPopNow = true;
+      });
+    }
+  }
   Widget changePage()
   {
     if(_currentIndex==0)
@@ -103,7 +129,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
                   duration: const Duration(milliseconds: 2000),
                   repeat: true,
                   // repeatPauseDuration: Duration(seconds: 2),
-                  startDelay: Duration(seconds: 1),
+                  startDelay: const Duration(seconds: 1),
                   child: CircleAvatar(
                     backgroundColor: Colors.transparent,
                     radius: 50,

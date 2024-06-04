@@ -157,9 +157,9 @@ class ContactWidget extends StatelessWidget
                         Center(
                           child: ElevatedButton(
                               style: ButtonStyle(
-                                  foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                                  backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                                  backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                                  shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(10.00),
                                           side: const BorderSide(color: Constants.GreenColor)
@@ -167,11 +167,11 @@ class ContactWidget extends StatelessWidget
                                   )
                               ),
                               onPressed: () => launchLink(link!),
-                              child: SizedBox(
+                              child: const SizedBox(
                                 width: 160,
                                 child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const <Widget>[
+                                    children: <Widget>[
                                       Icon(Icons.info_outline, color: Colors.white,),
                                       SizedBox(width: 10,),
                                       Text(

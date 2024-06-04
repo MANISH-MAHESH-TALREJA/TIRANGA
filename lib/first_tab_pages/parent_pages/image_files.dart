@@ -90,7 +90,11 @@ class _ImageFilesState extends State<ImageFiles>
         return Padding(
           padding: const EdgeInsets.all(5.0),
           child: GestureDetector(
-            onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (context) => ImageOutput(image: value.wallpaperImages!,imageType: widget.imageType,))) : showToast("INTERNET CONNECTION UNAVAILABLE"),
+            onTap: () async => await check() ? Future.delayed(Duration.zero, () {
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ImageOutput(image: value.wallpaperImages!,imageType: widget.imageType,)));
+
+            }) : showToast("INTERNET CONNECTION UNAVAILABLE"),
             child: Card(
               elevation: 2,
               shape: RoundedRectangleBorder(

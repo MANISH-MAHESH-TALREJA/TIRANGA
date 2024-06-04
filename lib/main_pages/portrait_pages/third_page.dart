@@ -21,11 +21,6 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
   InfiniteCardsController? _controller;
   bool _isTypeSwitch = true;
 
-  @override
-  void dispose()
-  {
-    super.dispose();
-  }
 
   @override
   void initState()
@@ -103,9 +98,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                   children: <Widget>[
                     ElevatedButton(
                         style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                            backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.00),
                                     side: const BorderSide(color: Constants.GreenColor)
@@ -117,9 +112,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                           _controller!.reset(animType: _isTypeSwitch ? AnimType.toSwitch : AnimType.toFront);
                           _controller!.previous();
                         },
-                        child: Row(
+                        child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const <Widget>[
+                            children: <Widget>[
                               Icon(Icons.arrow_back_outlined, color: Colors.white,),
                               SizedBox(width: 5,),
                               Text(
@@ -131,9 +126,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                     ),
                     ElevatedButton(
                         style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                            backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.00),
                                     side: const BorderSide(color: Constants.GreenColor)
@@ -141,9 +136,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                             )
                         ),
                         onPressed: () => _changeType(context),
-                        child: Row(
+                        child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const <Widget>[
+                            children: <Widget>[
                               Icon(Icons.refresh, color: Colors.white,),
                               SizedBox(width: 5,),
                               Text(
@@ -155,9 +150,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                     ),
                     ElevatedButton(
                         style: ButtonStyle(
-                            foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                            backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                            backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                            shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.00),
                                     side: const BorderSide(color: Constants.GreenColor)
@@ -169,9 +164,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                           _controller!.reset(animType: AnimType.toEnd);
                           _controller!.next();
                         },
-                        child: Row(
+                        child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const <Widget>[
+                            children: <Widget>[
                               Icon(Icons.arrow_forward_rounded, color: Colors.white,),
                               SizedBox(width: 5,),
                               Text(
@@ -222,9 +217,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                     [
                       ElevatedButton(
                           style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                              backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.00),
                                       side: const BorderSide(color: Constants.GreenColor)
@@ -236,9 +231,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                             _controller!.reset(animType: _isTypeSwitch ? AnimType.toSwitch : AnimType.toFront);
                             _controller!.previous();
                           },
-                          child: Row(
+                          child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
+                              children: <Widget>[
                                 Icon(Icons.arrow_back_outlined, color: Colors.white,),
                                 SizedBox(width: 5,),
                                 Text(
@@ -250,9 +245,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                       ),
                       ElevatedButton(
                           style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                              backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.00),
                                       side: const BorderSide(color: Constants.GreenColor)
@@ -260,9 +255,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                               )
                           ),
                           onPressed: () => _changeType(context),
-                          child: Row(
+                          child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
+                              children: <Widget>[
                                 Icon(Icons.refresh, color: Colors.white,),
                                 SizedBox(width: 5,),
                                 Text(
@@ -274,9 +269,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                       ),
                       ElevatedButton(
                           style: ButtonStyle(
-                              foregroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                              backgroundColor: MaterialStateProperty.all<Color>(Constants.OrangeColor),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              foregroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                              backgroundColor: WidgetStateProperty.all<Color>(Constants.OrangeColor),
+                              shape: WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10.00),
                                       side: const BorderSide(color: Constants.GreenColor)
@@ -288,9 +283,9 @@ class ThirdPageState extends State<ThirdPage> with TickerProviderStateMixin
                             _controller!.reset(animType: AnimType.toEnd);
                             _controller!.next();
                           },
-                          child: Row(
+                          child: const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const <Widget>[
+                              children: <Widget>[
                                 Icon(Icons.arrow_forward_rounded, color: Colors.white,),
                                 SizedBox(width: 5,),
                                 Text(
@@ -350,10 +345,10 @@ class RainParticleBehaviour extends RandomParticleBehaviour
   static math.Random random = math.Random();
   bool enabled;
   RainParticleBehaviour({
-    ParticleOptions options = const ParticleOptions(),
-    Paint? paint,
+    super.options,
+    super.paint,
     // ignore: unnecessary_null_comparison
-    this.enabled = true}) : assert(options != null), super(options: options, paint: paint);
+    this.enabled = true}) : assert(options != null);
 
   @override
   void initPosition(Particle p)

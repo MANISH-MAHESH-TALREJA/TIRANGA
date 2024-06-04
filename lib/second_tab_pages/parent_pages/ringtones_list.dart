@@ -76,7 +76,11 @@ class _RingtonesListState extends State<RingtonesList>
   Widget tirangaCard(int index, RingtonesModel value, Orientation orientation)
   {
     return GestureDetector(
-      onTap: () async => await check() ? showMaterialModalBottomSheet(context: context, builder: (context) => AudioApp(value.audioLink!, value.audioName!)) : showToast("INTERNET CONNECTION UNAVAILABLE"),
+      onTap: () async => await check() ? Future.delayed(Duration.zero, () {
+
+        showMaterialModalBottomSheet(context: context, builder: (context) => AudioApp(value.audioLink!, value.audioName!));
+
+      }) : showToast("INTERNET CONNECTION UNAVAILABLE"),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         child: Card(

@@ -1,28 +1,28 @@
 import 'dart:async';
-import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// Communicates the current state of the audio player.
 enum AudioPlayerState {
   /// Player is stopped. No file is loaded to the player. Calling [resume] or
   /// [pause] will result in exception.
-  STOPPED,
+  stopped,
 
   /// Currently playing a file. The user can [pause], [resume] or [stop] the
   /// playback.
-  PLAYING,
+  playing,
 
   /// Paused. The user can [resume] the playback without providing the URL.
-  PAUSED,
+  paused,
 
-  /// The playback has been completed. This state is the same as [STOPPED],
+  /// The playback has been completed. This state is the same as [stopped],
   /// however we differentiate it because some clients might want to know when
   /// the playback is done versus when the user has stopped the playback.
-  COMPLETED,
+  completed,
 }
 
-const MethodChannel _channel = const MethodChannel('net.manish.audio/audio');
+const MethodChannel _channel = MethodChannel('net.manish.audio/audio');
 
 /// A plugin for controlling the on device audio player.
 ///
@@ -33,12 +33,12 @@ const MethodChannel _channel = const MethodChannel('net.manish.audio/audio');
 /// to this.
 class AudioPlayer {
   final StreamController<AudioPlayerState> _playerStateController =
-      new StreamController.broadcast();
+      StreamController.broadcast();
 
   final StreamController<Duration> _positionController =
-      new StreamController.broadcast();
+      StreamController.broadcast();
 
-  AudioPlayerState _state = AudioPlayerState.STOPPED;
+  AudioPlayerState _state = AudioPlayerState.stopped;
   Duration _duration = const Duration();
 
   AudioPlayer() {
@@ -73,48 +73,48 @@ class AudioPlayer {
   /// Reports the duration of the current media being played. It might return
   /// 0 if we have not determined the length of the media yet. It is best to
   /// call this from a state listener when the state has become
-  /// [AudioPlayerState.PLAYING].
+  /// [AudioPlayerState.playing].
   Duration get duration => _duration;
 
   /// Stream for subscribing to audio position change events. Roughly fires
   /// every 200 milliseconds. Will continously update the position of the
-  /// playback if the status is [AudioPlayerState.PLAYING].
+  /// playback if the status is [AudioPlayerState.playing].
   Stream<Duration> get onAudioPositionChanged => _positionController.stream;
 
   Future<void> _audioPlayerStateChange(MethodCall call) async {
     switch (call.method) {
       case "audio.onCurrentPosition":
-        assert(_state == AudioPlayerState.PLAYING);
-        _positionController.add(new Duration(milliseconds: call.arguments));
+        assert(_state == AudioPlayerState.playing);
+        _positionController.add(Duration(milliseconds: call.arguments));
         break;
       case "audio.onStart":
-        _state = AudioPlayerState.PLAYING;
-        _playerStateController.add(AudioPlayerState.PLAYING);
-        print('PLAYING ${call.arguments}');
-        _duration = new Duration(milliseconds: call.arguments);
+        _state = AudioPlayerState.playing;
+        _playerStateController.add(AudioPlayerState.playing);
+        debugPrint('PLAYING ${call.arguments}');
+        _duration = Duration(milliseconds: call.arguments);
         break;
       case "audio.onPause":
-        _state = AudioPlayerState.PAUSED;
-        _playerStateController.add(AudioPlayerState.PAUSED);
+        _state = AudioPlayerState.paused;
+        _playerStateController.add(AudioPlayerState.paused);
         break;
       case "audio.onStop":
-        _state = AudioPlayerState.STOPPED;
-        _playerStateController.add(AudioPlayerState.STOPPED);
+        _state = AudioPlayerState.stopped;
+        _playerStateController.add(AudioPlayerState.stopped);
         break;
       case "audio.onComplete":
-        _state = AudioPlayerState.COMPLETED;
-        _playerStateController.add(AudioPlayerState.COMPLETED);
+        _state = AudioPlayerState.completed;
+        _playerStateController.add(AudioPlayerState.completed);
         break;
       case "audio.onError":
         // If there's an error, we assume the player has stopped.
-        _state = AudioPlayerState.STOPPED;
+        _state = AudioPlayerState.stopped;
         _playerStateController.addError(call.arguments);
         // TODO: Handle error arguments here. It is not useful to pass this
         // to the client since each platform creates different error string
         // formats so we can't expect client to parse these.
         break;
       default:
-        throw new ArgumentError('Unknown method ${call.method} ');
+        throw ArgumentError('Unknown method ${call.method} ');
     }
   }
 }

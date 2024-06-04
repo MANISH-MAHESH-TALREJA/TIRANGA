@@ -59,11 +59,11 @@ class NationalSongsOutputState extends State<NationalSongsOutput>
     _audioPlayerStateSubscription =
         audioPlayer!.onPlayerStateChanged.listen((s)
         {
-          if (s == AudioPlayerState.PLAYING)
+          if (s == AudioPlayerState.playing)
           {
             setState(() => duration = audioPlayer!.duration);
           }
-          else if (s == AudioPlayerState.STOPPED)
+          else if (s == AudioPlayerState.stopped)
           {
             onComplete();
             setState(()

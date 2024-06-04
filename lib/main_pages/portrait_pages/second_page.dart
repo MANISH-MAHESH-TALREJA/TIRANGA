@@ -36,7 +36,11 @@ class SecondPageState extends State<SecondPage>
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10),
           child: GestureDetector(
-            onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> NationalSymbols(Constants.NationalSymbolsAPI, Constants.AppBarIndia))) : showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
+            onTap: () async => await check() ? Future.delayed(Duration.zero, () {
+
+              Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> NationalSymbols(Constants.NationalSymbolsAPI, Constants.AppBarIndia)));
+
+  }) : showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
             child: Stack(
               children:
               [
@@ -109,7 +113,11 @@ class SecondPageState extends State<SecondPage>
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: GestureDetector(
-        onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> NavratriWidget)) : showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
+        onTap: () async => await check() ? Future.delayed(Duration.zero, () {
+
+          Navigator.push(context, MaterialPageRoute(builder: (BuildContext context)=> NavratriWidget));
+
+        }) : showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
         child: Stack(
           children:
           [

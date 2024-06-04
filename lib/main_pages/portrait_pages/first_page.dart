@@ -151,7 +151,11 @@ class FirstPage extends StatelessWidget
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal:8.0),
       child: GestureDetector(
-        onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (context) => nextPage)) : showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
+        onTap: () async => await check() ? Future.delayed(Duration.zero, () {
+
+          Navigator.push(context, MaterialPageRoute(builder: (context) => nextPage));
+
+        }) : showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
         child: Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),

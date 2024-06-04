@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart' hide ModalBottomSheetRoute;
+import 'package:in_app_update/in_app_update.dart';
 import 'package:pokemon/constants.dart';
 import 'package:pokemon/sub_category.dart';
 import 'package:shimmer/shimmer.dart';
@@ -26,17 +27,41 @@ class HorizontalMainPageState extends State<HorizontalMainPage>
   {
     super.initState();
     ToastContext().init(context);
-    //InAppUpdate.checkForUpdate();
+    InAppUpdate.checkForUpdate();
   }
-
+  bool canPopNow = false;
+  int requiredSeconds = 2;
+  void onPopInvoked(bool didPop) {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime!) >
+            Duration(seconds: requiredSeconds)) {
+      currentBackPressTime = now;
+      showToast("PRESS BACK BUTTON AGAIN TO EXIT");
+      Future.delayed(
+        Duration(seconds: requiredSeconds),
+            () {
+          // Disable pop invoke and close the toast after 2s timeout
+          setState(() {
+            canPopNow = false;
+          });
+        },
+      );
+      // Ok, let user exit app on the next back press
+      setState(() {
+        canPopNow = true;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context)
   {
     return Scaffold(
       appBar: const RepublicDrawer().RepublicAppBar(context, Constants.OutputAppBarTitle),
       drawer: const RepublicDrawer(),
-      body: WillPopScope(
-        onWillPop: onWillPop,
+      body: PopScope(
+        canPop: canPopNow,
+        onPopInvoked: onPopInvoked,
         child: Center(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -142,7 +167,11 @@ class HorizontalMainPageState extends State<HorizontalMainPage>
   Widget FirstHorizontalCard(BuildContext context, String image, String title, Widget nextPage)
   {
     return GestureDetector(
-      onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (context) => nextPage)) : showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
+      onTap: () async => await check() ? Future.delayed(Duration.zero, () {
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) => nextPage));
+
+      }) : showToast("KINDLY CHECK YOUR INTERNET CONNECTION"),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),

@@ -76,7 +76,11 @@ class _NationalSongsListState extends State<NationalSongsList>
   {
     return GestureDetector(
 
-      onTap: () async => await check() ? Navigator.push(context, MaterialPageRoute(builder: (context) => NationalSongsOutput(value.name!, value.link!, value.english!, value.hindi!))) : showToast("INTERNET CONNECTION UNAVAILABLE"),
+      onTap: () async => await check() ? Future.delayed(Duration.zero, () {
+
+        Navigator.push(context, MaterialPageRoute(builder: (context) => NationalSongsOutput(value.name!, value.link!, value.english!, value.hindi!)));
+
+      }) : showToast("INTERNET CONNECTION UNAVAILABLE"),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5.0),
         child: Card(

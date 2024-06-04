@@ -5,7 +5,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:pokemon/main_pages/Other/start_page.dart';
 import 'package:toast/toast.dart';
 import 'constants.dart';
-import 'general_utility_functions.dart';
 import 'notification_utility.dart';
 
 class SplashScreen extends StatefulWidget

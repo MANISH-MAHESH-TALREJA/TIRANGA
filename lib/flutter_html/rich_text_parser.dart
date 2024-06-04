@@ -32,14 +32,12 @@ class LinkTextSpan extends TextSpan {
   final String? url;
 
   LinkTextSpan(
-      {TextStyle? style,
+      {super.style,
       this.url,
-      String? text,
+      super.text,
       OnLinkTap? onLinkTap,
       List<TextSpan>? children})
       : super(
-          style: style,
-          text: text,
           children: children ?? <TextSpan>[],
           recognizer: TapGestureRecognizer()
             ..onTap = () {

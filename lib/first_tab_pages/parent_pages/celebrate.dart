@@ -94,7 +94,7 @@ class CelebrateState extends State<Celebrate> with TickerProviderStateMixin
     super.dispose();
   }
 
-  DateTime? currentBackPressTime;
+
   Future<bool> onWillPop()
   {
     DateTime now = DateTime.now();
@@ -106,14 +106,39 @@ class CelebrateState extends State<Celebrate> with TickerProviderStateMixin
     }
     return Future.value(true);
   }
-
+  DateTime? currentBackPressTime;
+  bool canPopNow = false;
+  int requiredSeconds = 2;
+  void onPopInvoked(bool didPop) {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime!) >
+            Duration(seconds: requiredSeconds)) {
+      currentBackPressTime = now;
+      showToast("PRESS BACK BUTTON AGAIN TO EXIT");
+      Future.delayed(
+        Duration(seconds: requiredSeconds),
+            () {
+          // Disable pop invoke and close the toast after 2s timeout
+          setState(() {
+            canPopNow = false;
+          });
+        },
+      );
+      // Ok, let user exit app on the next back press
+      setState(() {
+        canPopNow = true;
+      });
+    }
+  }
   var particlePaint = Paint()..style = PaintingStyle.stroke..strokeWidth = 1.0;
   @override
   Widget build(BuildContext context)
   {
     return Scaffold(
-      body:  WillPopScope(
-        onWillPop: onWillPop ,
+      body:  PopScope(
+          canPop: canPopNow,
+          onPopInvoked: onPopInvoked,
         child: Container(
           decoration: const BoxDecoration(
               gradient: LinearGradient(
@@ -245,10 +270,10 @@ class RainParticleBehaviour extends RandomParticleBehaviour
   static math.Random random = math.Random();
   bool enabled;
   RainParticleBehaviour({
-    ParticleOptions options = const ParticleOptions(),
-    Paint? paint,
+    super.options,
+    super.paint,
     // ignore: unnecessary_null_comparison
-    this.enabled = true}) : assert(options != null), super(options: options, paint: paint);
+    this.enabled = true}) : assert(options != null);
 
   @override
   void initPosition(Particle p)
