@@ -123,7 +123,7 @@ class RepublicDrawer extends StatelessWidget
                   ),
                 ),
               ),
-              /*Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal:8.0, vertical: 2.5),
                 child: Card(
                   elevation: 2,
@@ -141,7 +141,7 @@ class RepublicDrawer extends StatelessWidget
                     },
                   ),
                 ),
-              ),*/
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal:8.0, vertical: 2.5),
                 child: Card(

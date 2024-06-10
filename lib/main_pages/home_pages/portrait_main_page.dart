@@ -121,6 +121,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
+              const SizedBox(height: 30,),
               AvatarGlow(
                 //endRadius: 75,
                   glowCount: 2,
@@ -217,7 +218,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
                   ),
                 ),
               ),
-              /*Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal:8.0, vertical: 2.5),
                 child: Card(
                   elevation: 2,
@@ -231,7 +232,7 @@ class PortraitMainPageState extends State<PortraitMainPage>
                     onTap: () => launchLink(Constants.AppPlayStoreLink),
                   ),
                 ),
-              ),*/
+              ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal:8.0, vertical: 2.5),
                 child: Card(

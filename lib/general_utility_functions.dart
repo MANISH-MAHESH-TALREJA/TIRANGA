@@ -393,16 +393,6 @@ void launchLink(String link)
   }
 }
 
-/*void setWallpaperScreen(BuildContext context, String url, String screen, int type) async
-{
-  int location = type;
-
-  File file = await DefaultCacheManager().getSingleFile(url);
-  debugPrint("MY FILE : $file");
-  await WallpaperManager.setWallpaperFromFile(file.path, location);
-  showToast("$screen WALLPAPER CHANGED SUCCESSFULLY !!!!");
-}*/
-
 void setWallpaperScreen(BuildContext context, String url, String screen, int type) async
 {
   late Stream<String> progressString = Wallpaper.imageDownloadProgress(url, imageName: "TIRANGA-IMAGE", location: DownloadLocation.TEMPORARY_DIRECTORY);
@@ -471,111 +461,6 @@ void setWallpaper(BuildContext context, String url, String screen, int type) asy
   if(await check())
   {
     setWallpaperScreen(context, url, screen, type);
-    /*DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    if(androidInfo.version.sdkInt >= 33.0)
-    {
-      PermissionStatus permissionStatus01 = await Permission.audio.status;
-      PermissionStatus permissionStatus02 = await Permission.videos.status;
-      PermissionStatus permissionStatus03 = await Permission.photos.status;
-      PermissionStatus permissionStatus04 = await Permission.notification.status;
-      if(permissionStatus01.isGranted && permissionStatus02.isGranted && permissionStatus03.isGranted && permissionStatus04.isGranted)
-      {
-        setWallpaperScreen(context, url, screen, type);
-      }
-      else
-      {
-        await Permission.audio.request();
-        await Permission.videos.request();
-        await Permission.photos.request();
-        await Permission.notification.request();
-        PermissionStatus permissionStatus01 = await Permission.audio.status;
-        PermissionStatus permissionStatus02 = await Permission.videos.status;
-        PermissionStatus permissionStatus03 = await Permission.photos.status;
-        PermissionStatus permissionStatus04 = await Permission.notification.status;
-        if(permissionStatus01.isGranted && permissionStatus02.isGranted && permissionStatus03.isGranted && permissionStatus04.isGranted)
-        {
-          setWallpaperScreen(context, url, screen, type);
-        }
-        else
-        {
-          Alert(context: context, type: AlertType.error, style: AlertStyle(
-              animationType: AnimationType.fromTop,
-              isCloseButton: false,
-              isOverlayTapDismiss: false,
-              animationDuration: const Duration(milliseconds: 500),
-              alertBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: const BorderSide(color: Colors.pink,),),
-              titleStyle: const TextStyle(color: Colors.red)),
-              title: "PERMISSION DENIED", desc: "KINDLY ALLOW THE PERMISSION TO SET WALLPAPER",
-              buttons: [
-                DialogButton(onPressed: () async
-                {
-                  Navigator.pop(context);
-                  await Permission.audio.request();
-                  await Permission.videos.request();
-                  await Permission.photos.request();
-                  await Permission.notification.request();
-                  PermissionStatus permissionStatus01 = await Permission.audio.status;
-                  PermissionStatus permissionStatus02 = await Permission.videos.status;
-                  PermissionStatus permissionStatus03 = await Permission.photos.status;
-                  PermissionStatus permissionStatus04 = await Permission.notification.status;
-                  if(permissionStatus01.isGranted && permissionStatus02.isGranted && permissionStatus03.isGranted && permissionStatus04.isGranted)
-                  {
-                    setWallpaperScreen(context, url, screen, type);
-                  }
-                }, width: 120, child: const Text("RETRY", style: TextStyle(color: Colors.white, fontSize: 20))),
-                DialogButton(onPressed: () async
-                {
-                  Navigator.pop(context);
-                }, width: 120, child: const Text("CANCEL", style: TextStyle(color: Colors.white, fontSize: 20)))
-              ]).show();
-        }
-      }
-    }
-    else
-    {
-      PermissionStatus permissionStatus = await Permission.storage.status;
-      if(permissionStatus.isGranted)
-      {
-        setWallpaperScreen(context, url, screen, type);
-      }
-      else
-      {
-        await Permission.storage.request();
-        PermissionStatus permissionStatus = await Permission.storage.status;
-        if(permissionStatus.isGranted)
-        {
-          setWallpaperScreen(context, url, screen, type);
-        }
-        else
-        {
-          Alert(context: context, type: AlertType.error, style: AlertStyle(
-              animationType: AnimationType.fromTop,
-              isCloseButton: false,
-              isOverlayTapDismiss: false,
-              animationDuration: const Duration(milliseconds: 500),
-              alertBorder: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15), side: const BorderSide(color: Colors.pink,),),
-              titleStyle: const TextStyle(color: Colors.red)),
-              title: "PERMISSION DENIED", desc: "KINDLY ALLOW THE PERMISSION TO SET WALLPAPER",
-              buttons: [
-                DialogButton(onPressed: () async
-                {
-                  Navigator.pop(context);
-                  await Permission.storage.request();
-                  PermissionStatus permissionStatus = await Permission.storage.status;
-                  if(permissionStatus.isGranted)
-                  {
-                    setWallpaperScreen(context, url, screen, type);
-                  }
-                }, width: 120, child: const Text("RETRY", style: TextStyle(color: Colors.white, fontSize: 20))),
-                DialogButton(onPressed: () async
-                {
-                  Navigator.pop(context);
-                }, width: 120, child: const Text("CANCEL", style: TextStyle(color: Colors.white, fontSize: 20)))
-              ]).show();
-        }
-      }
-    }*/
   }
   else
   {
@@ -589,11 +474,10 @@ void setRingtone(BuildContext context, String url, int type) async
   {
     DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    /*Map<dynamic, dynamic> info = await initPlatformState();
-    var androidInformation = info.values.toList();*/
     if(androidInfo.version.sdkInt >= 33.0)
     {
-      PermissionStatus permissionStatus01 = await Permission.audio.status;
+      showToast("THIS FUNCTIONALITY WILL BE ENABLED IN FUTURE UPDATES ...");
+      /*PermissionStatus permissionStatus01 = await Permission.audio.status;
       PermissionStatus permissionStatus02 = await Permission.videos.status;
       PermissionStatus permissionStatus03 = await Permission.photos.status;
       PermissionStatus permissionStatus04 = await Permission.notification.status;
@@ -649,7 +533,7 @@ void setRingtone(BuildContext context, String url, int type) async
                 }, width: 120, child: const Text("CANCEL", style: TextStyle(color: Colors.white, fontSize: 20)))
               ]).show();
         }
-      }
+      }*/
     }
     else
     {
@@ -761,7 +645,11 @@ Future<dynamic> celebrateAlert(BuildContext context)
                             )
                         )
                     ),
-                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const Celebrate())),
+                    onPressed: ()
+                    {
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const Celebrate()));
+                    },
                     child: SizedBox(
                       width: 120,
                       child: Row(
