@@ -1,15 +1,13 @@
-import 'package:flutter/animation.dart';
 import 'package:flutter/widgets.dart';
-
 import 'card_item.dart';
 import 'infinite_card_view.dart';
 import 'infinite_cards_controller.dart';
 
-const int ANIM_DURATION = 1000,
-    ANIM_ADD_REMOVE_DELAY = 200,
-    ANIM_ADD_REMOVE_DURATION = 500;
+const int animDuration = 1000,
+    animAddRemoveDelay = 200,
+    animAddRemoveDuration = 500;
 
-enum AnimStatus { CardStart, CardEnd, AddStart, AddEnd, RemoveStart, RemoveEnd }
+enum AnimStatus { cardStart, cardEnd, addStart, addEnd, removeStart, removeEnd }
 
 typedef AnimCallback = void Function(AnimStatus status);
 
@@ -56,7 +54,7 @@ class AnimHelper {
       return;
     }
     //not support for TO_END type
-    if (controller.animType == AnimType.TO_END) {
+    if (controller.animType == AnimType.toEnd) {
       return;
     }
     _cardAnim(controller.itemCount - 1, _cardList![controller.itemCount - 1]);
@@ -68,7 +66,7 @@ class AnimHelper {
       return;
     }
     //only support for TO_END type
-    if (controller.animType != AnimType.TO_END) {
+    if (controller.animType != AnimType.toEnd) {
       return;
     }
     _cardAnim(0, _cardList![0]);
@@ -79,7 +77,7 @@ class AnimHelper {
     if (isAnim()) {
       return;
     }
-    if (controller.animType == AnimType.TO_END) {
+    if (controller.animType == AnimType.toEnd) {
       return;
     }
     _cardAnim(index, _cardList![index]);
@@ -119,9 +117,8 @@ class AnimHelper {
   void _initAnimation() {
     _animationController = AnimationController(
         vsync: _tickerProvider!,
-        duration: controller.animDuration ??
-            const Duration(milliseconds: ANIM_DURATION));
-    _animation = new Tween(begin: 0.0, end: 1.0).animate(_animationController!);
+        duration: controller.animDuration);
+    _animation = Tween(begin: 0.0, end: 1.0).animate(_animationController!);
     _animation!.addListener(listenerForSetState);
     _animation!.addStatusListener((status) {
       if (status == AnimationStatus.forward ||
@@ -142,9 +139,9 @@ class AnimHelper {
     for (int i = 0; i < controller.itemCount; i++) {
       AnimationController animationController = AnimationController(
           vsync: _tickerProvider!,
-          duration: const Duration(milliseconds: ANIM_ADD_REMOVE_DURATION));
+          duration: const Duration(milliseconds: animAddRemoveDuration));
       Animation<double> animation =
-          new Tween(begin: 0.0, end: 1.0).animate(animationController);
+          Tween(begin: 0.0, end: 1.0).animate(animationController);
       animation.addListener(listenerForSetState);
       animation.addStatusListener((status) {
         if (status == AnimationStatus.forward ||
@@ -169,7 +166,7 @@ class AnimHelper {
   void _addCards() {
     _isAddAnim = true;
     if (animCallback != null) {
-      animCallback!(AnimStatus.AddStart);
+      animCallback!(AnimStatus.addStart);
     }
     _addRemoveAnim();
   }
@@ -178,7 +175,7 @@ class AnimHelper {
   void _removeCards() {
     _isAddAnim = false;
     if (animCallback != null) {
-      animCallback!(AnimStatus.RemoveStart);
+      animCallback!(AnimStatus.removeStart);
     }
     _addRemoveAnim();
   }
@@ -188,7 +185,7 @@ class AnimHelper {
     _isAddRemoveAnim = true;
     _isSwitchAnim = false;
     for (int i = 0; i < controller.itemCount; i++) {
-      Future.delayed(Duration(milliseconds: ANIM_ADD_REMOVE_DELAY * i), () {
+      Future.delayed(Duration(milliseconds: animAddRemoveDelay * i), () {
         _animationControllerAddRemoveList![i].forward(from: 0.0);
       });
     }
@@ -201,7 +198,7 @@ class AnimHelper {
     );
     //type TO_END not support for switch anim
     if (controller.clickItemToSwitch &&
-        controller.animType != AnimType.TO_END) {
+        controller.animType != AnimType.toEnd) {
       return GestureDetector(
         onTap: () {
           _onItemTap(index);
@@ -215,7 +212,7 @@ class AnimHelper {
   //tap to switch
   void _onItemTap(int index) {
     //type TO_END is not support
-    if (controller.animType == AnimType.TO_END) {
+    if (controller.animType == AnimType.toEnd) {
       return;
     }
     for (int i = 0; i < controller.itemCount; i++) {
@@ -235,28 +232,28 @@ class AnimHelper {
       return;
     }
     if (animCallback != null) {
-      animCallback!(AnimStatus.CardStart);
+      animCallback!(AnimStatus.cardStart);
     }
     switch (controller.animType) {
       /**
      * for SWITCH type, make the selected card to front, and make the first
      * card to the selected position
      */
-      case AnimType.SWITCH:
+      case AnimType.toSwitch:
         _cardToFront = card;
         _cardToBack = _cardList![0];
         _positionToBack = 0;
         _positionToFront = index;
         break;
       //for TO_FRONT type, just make the select card to first
-      case AnimType.TO_FRONT:
+      case AnimType.toFront:
         _cardToFront = card;
         _positionToFront = index;
         _cardToBack = null;
         _positionToBack = 0;
         break;
       //for TO_END type, just make the first to end
-      case AnimType.TO_END:
+      case AnimType.toEnd:
         _cardToFront = null;
         _positionToFront = controller.itemCount - 1;
         _cardToBack = card;
@@ -270,25 +267,25 @@ class AnimHelper {
   void _animEnd() {
     switch (controller.animType) {
       // for SWITCH type, switch the position of the selected card and the first
-      case AnimType.SWITCH:
+      case AnimType.toSwitch:
         _cardList!.removeAt(_positionToFront!);
         _cardList!.removeAt(0);
         _cardList!.insert(0, _cardToFront!);
         _cardList!.insert(_positionToFront!, _cardToBack!);
         break;
       // for TO_FRONT type, move the selected card to first
-      case AnimType.TO_FRONT:
+      case AnimType.toFront:
         _cardList!.removeAt(_positionToFront!);
         _cardList!.insert(0, _cardToFront!);
         break;
       // for TO_END type, move the first card to end
-      case AnimType.TO_END:
+      case AnimType.toEnd:
         _cardList!.removeAt(0);
         _cardList!.add(_cardToBack!);
         break;
     }
     if (animCallback != null) {
-      animCallback!(AnimStatus.CardEnd);
+      animCallback!(AnimStatus.cardEnd);
     }
   }
 
@@ -298,7 +295,7 @@ class AnimHelper {
       controller.reset();
     }
     if (animCallback != null) {
-      animCallback!(_isAddAnim ? AnimStatus.AddEnd : AnimStatus.RemoveEnd);
+      animCallback!(_isAddAnim ? AnimStatus.addEnd : AnimStatus.removeEnd);
     }
     //if remove animation is end, start add card animation
     if (!_isAddAnim) {
@@ -408,14 +405,14 @@ class AnimHelper {
       return;
     }
     switch (controller.animType) {
-      case AnimType.SWITCH:
+      case AnimType.toSwitch:
         break;
-      case AnimType.TO_FRONT:
+      case AnimType.toFront:
         if (position < _positionToFront!) {
           _commonTransform(width, height, position, position + 1);
         }
         break;
-      case AnimType.TO_END:
+      case AnimType.toEnd:
         if (position > _positionToBack!) {
           _commonTransform(width, height, position, position - 1);
         }
@@ -468,7 +465,9 @@ class AnimHelper {
   }
 
   //get value transformed by curve
-  double _getCurveValue(double fraction) {
+  double _getCurveValue(double fraction)
+  {
+    // ignore: unnecessary_null_comparison
     return controller.curve == null
         ? fraction
         : controller.curve.transform(fraction);

@@ -12,28 +12,28 @@ class InfiniteCardsController {
   int _itemCount;
 
   //switch anim duration
-  Duration? _animDuration;
+  Duration _animDuration;
 
   //true: switch animation while click on item, false: item not clickable
   bool _clickItemToSwitch;
 
   //anim transforms
-  AnimTransform? _transformToFront,
+  AnimTransform _transformToFront,
       _transformToBack,
       _transformCommon,
       _transformAdd,
       _transformRemove;
 
   //zIndex transforms
-  ZIndexTransform? _zIndexTransformCommon,
+  ZIndexTransform _zIndexTransformCommon,
       _zIndexTransformToFront,
       _zIndexTransformToBack;
 
   //animation type
-  AnimType? _animType;
+  AnimType _animType;
 
   //curve
-  Curve? _curve;
+  Curve _curve;
 
   //helper
   AnimHelper? _animHelper;
@@ -41,18 +41,18 @@ class InfiniteCardsController {
   InfiniteCardsController({
     required IndexedWidgetBuilder itemBuilder,
     required int itemCount,
-    Duration? animDuration,
+    required Duration animDuration,
     bool clickItemToSwitch = true,
-    AnimTransform transformToFront = DefaultToFrontTransform,
-    AnimTransform transformToBack = DefaultToBackTransform,
-    AnimTransform transformCommon = DefaultCommonTransform,
-    AnimTransform transformAdd = DefaultAddTransform,
-    AnimTransform transformRemove = DefaultRemoveTransform,
-    ZIndexTransform zIndexTransformCommon = DefaultCommonZIndexTransform,
-    ZIndexTransform zIndexTransformToFront = DefaultToFrontZIndexTransform,
-    ZIndexTransform zIndexTransformToBack = DefaultCommonZIndexTransform,
-    AnimType animType = AnimType.TO_FRONT,
-    Curve curve = DefaultCurve,
+    AnimTransform transformToFront = defaultToFrontTransform,
+    AnimTransform transformToBack = defaultToBackTransform,
+    AnimTransform transformCommon = defaultCommonTransform,
+    AnimTransform transformAdd = defaultAddTransform,
+    AnimTransform transformRemove = defaultRemoveTransform,
+    ZIndexTransform zIndexTransformCommon = defaultCommonZIndexTransform,
+    ZIndexTransform zIndexTransformToFront = defaultToFrontZIndexTransform,
+    ZIndexTransform zIndexTransformToBack = defaultCommonZIndexTransform,
+    AnimType animType = AnimType.toFront,
+    Curve curve = defaultCurve,
   })  : _itemBuilder = itemBuilder,
         _itemCount = itemCount,
         _animDuration = animDuration,
@@ -96,7 +96,7 @@ class InfiniteCardsController {
     ZIndexTransform? zIndexTransformToBack,
     AnimType? animType,
     Curve? curve,
-    bool? forceReset = false,
+    bool forceReset = false,
   }) {
     if (_animHelper!.isAnim()) {
       return;
@@ -107,47 +107,47 @@ class InfiniteCardsController {
     }
     //reset params while remove anim comes to an end
     _animHelper!.animCallback = (AnimStatus status) {
-      if (status == AnimStatus.RemoveEnd) {
-        this._itemBuilder = itemBuilder ?? this._itemBuilder;
-        this._itemCount = itemCount ?? this._itemCount;
-        this._animDuration = animDuration ?? this._animDuration;
-        this._clickItemToSwitch = clickItemToSwitch ?? this._clickItemToSwitch;
-        this._transformToFront = transformToFront ?? this._transformToFront;
-        this._transformToBack = transformToBack ?? this._transformToBack;
-        this._transformCommon = transformCommon ?? this._transformCommon;
-        this._transformAdd = transformAdd ?? this._transformAdd;
-        this._transformRemove = transformRemove ?? this._transformRemove;
-        this._zIndexTransformCommon =
-            zIndexTransformCommon ?? this._zIndexTransformCommon;
-        this._zIndexTransformToFront =
-            zIndexTransformToFront ?? this._zIndexTransformToFront;
-        this._zIndexTransformToBack =
-            zIndexTransformToBack ?? this._zIndexTransformToBack;
-        this._animType = animType ?? this._animType;
-        this._curve = curve ?? this._curve;
-        if (forceReset!) {
+      if (status == AnimStatus.removeEnd) {
+        _itemBuilder = itemBuilder ?? _itemBuilder;
+        _itemCount = itemCount ?? _itemCount;
+        _animDuration = animDuration ?? _animDuration;
+        _clickItemToSwitch = clickItemToSwitch ?? _clickItemToSwitch;
+        _transformToFront = transformToFront ?? _transformToFront;
+        _transformToBack = transformToBack ?? _transformToBack;
+        _transformCommon = transformCommon ?? _transformCommon;
+        _transformAdd = transformAdd ?? _transformAdd;
+        _transformRemove = transformRemove ?? _transformRemove;
+        _zIndexTransformCommon =
+            zIndexTransformCommon ?? _zIndexTransformCommon;
+        _zIndexTransformToFront =
+            zIndexTransformToFront ?? _zIndexTransformToFront;
+        _zIndexTransformToBack =
+            zIndexTransformToBack ?? _zIndexTransformToBack;
+        _animType = animType ?? _animType;
+        _curve = curve ?? _curve;
+        if (forceReset) {
           _animHelper!.resetWidgets();
         }
         _animHelper!.animCallback = null;
       }
     };
-    if (forceReset!) {
+    if (forceReset) {
       _animHelper!.reset();
       return;
     }
     //direct set params
-    _animHelper!.animCallback!(AnimStatus.RemoveEnd);
+    _animHelper!.animCallback!(AnimStatus.removeEnd);
   }
 
-  Curve get curve => _curve!;
+  Curve get curve => _curve;
 
-  AnimType get animType => _animType!;
+  AnimType get animType => _animType;
 
   get zIndexTransformToBack => _zIndexTransformToBack;
 
   get zIndexTransformToFront => _zIndexTransformToFront;
 
-  ZIndexTransform get zIndexTransformCommon => _zIndexTransformCommon!;
+  ZIndexTransform get zIndexTransformCommon => _zIndexTransformCommon;
 
   get transformRemove => _transformRemove;
 
@@ -157,11 +157,11 @@ class InfiniteCardsController {
 
   get transformToBack => _transformToBack;
 
-  AnimTransform get transformToFront => _transformToFront!;
+  AnimTransform get transformToFront => _transformToFront;
 
   bool get clickItemToSwitch => _clickItemToSwitch;
 
-  Duration get animDuration => _animDuration!;
+  Duration get animDuration => _animDuration;
 
   int get itemCount => _itemCount;
 

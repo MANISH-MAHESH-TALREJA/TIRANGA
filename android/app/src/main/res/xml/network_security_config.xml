@@ -2,7 +2,7 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">firebasestorage.googleapis.com</domain>
-        <domain includeSubdomains="true">manish-mahesh-talreja.000webhostapp.com</domain>
+        <domain includeSubdomains="true">manishtalreja.com</domain>
         <domain includeSubdomains="true">manish-tiranga.appspot.com</domain>
     </domain-config>
 </network-security-config>

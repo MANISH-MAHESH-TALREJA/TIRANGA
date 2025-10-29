@@ -13,7 +13,7 @@ class CardItem {
 
   @override
   bool operator ==(other) {
-    if (!(other is CardItem)) {
+    if (other is! CardItem) {
       return false;
     }
     return other.adapterIndex == adapterIndex;

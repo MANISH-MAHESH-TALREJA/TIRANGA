@@ -5,17 +5,17 @@ import 'infinite_cards_controller.dart';
 
 //Three types of animation
 enum AnimType {
-  TO_FRONT,//custom animation for chosen card, common animation for other cards
-  SWITCH,//witch the position by custom animation of the first card and the chosen card
-  TO_END,//moving the first card to last position by custom animation, common animation for others
+  toFront,//custom animation for chosen card, common animation for other cards
+  toSwitch,//witch the position by custom animation of the first card and the chosen card
+  toEnd,//moving the first card to last position by custom animation, common animation for others
 }
 
 class InfiniteCards extends StatefulWidget {
   final double? width, height;
   final Color? background;
-  final InfiniteCardsController? controller;
+  final InfiniteCardsController controller;
 
-  InfiniteCards({
+  const InfiniteCards({super.key,
     required this.controller,
     this.width,
     this.height,
@@ -23,10 +23,10 @@ class InfiniteCards extends StatefulWidget {
   });
 
   @override
-  _InfiniteCardsState createState() => _InfiniteCardsState();
+  InfiniteCardsState createState() => InfiniteCardsState();
 }
 
-class _InfiniteCardsState extends State<InfiniteCards>
+class InfiniteCardsState extends State<InfiniteCards>
     with TickerProviderStateMixin {
   double? _width, _height;
   Color? _background;
@@ -36,15 +36,16 @@ class _InfiniteCardsState extends State<InfiniteCards>
   void initState() {
     super.initState();
     //init background, helper, controller
-    _background = widget.background ?? Color(0xffffffff);
+    _background = widget.background ?? const Color(0xffffffff);
     _helper = AnimHelper(
-        controller: widget.controller!,
+        controller: widget.controller,
         listenerForSetState: () {
           setState(() {});
         });
     _helper!.init(this, context);
+    // ignore: unnecessary_null_comparison
     if (widget.controller != null) {
-      widget.controller!.animHelper = _helper!;
+      widget.controller.animHelper = _helper!;
     }
   }
 

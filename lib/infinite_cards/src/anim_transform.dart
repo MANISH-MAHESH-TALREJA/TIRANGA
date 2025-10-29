@@ -22,17 +22,17 @@ typedef ZIndexTransform = void Function(
     int fromPosition,
     int toPosition);
 
-const AnimTransform DefaultCommonTransform = _defaultCommonTransform,
-    DefaultAddTransform = _defaultAddTransform,
-    DefaultRemoveTransform = _defaultRemoveTransform,
-    DefaultToBackTransform = _defaultToBackTransform,
-    DefaultToFrontTransform = _defaultToFrontTransform;
+const AnimTransform defaultCommonTransform = _defaultCommonTransform,
+    defaultAddTransform = _defaultAddTransform,
+    defaultRemoveTransform = _defaultRemoveTransform,
+    defaultToBackTransform = _defaultToBackTransform,
+    defaultToFrontTransform = _defaultToFrontTransform;
 
-const ZIndexTransform DefaultCommonZIndexTransform =
+const ZIndexTransform defaultCommonZIndexTransform =
         _defaultCommonZIndexTransform,
-    DefaultToFrontZIndexTransform = _defaultToFrontZIndexTransform;
+    defaultToFrontZIndexTransform = _defaultToFrontZIndexTransform;
 
-const Curve DefaultCurve = _DefaultCurve();
+const Curve defaultCurve = _DefaultCurve();
 
 Transform _defaultCommonTransform(
     Widget item,

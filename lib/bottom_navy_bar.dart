@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 /// Update [selectedIndex] to change the selected item.
 /// [selectedIndex] is required and must not be null.
 class BottomNavyBar extends StatelessWidget {
-  BottomNavyBar({
-    Key? key,
+  const BottomNavyBar({
+    super.key,
     this.selectedIndex = 0,
     this.showElevation = true,
     this.iconSize = 24,
@@ -27,8 +27,7 @@ class BottomNavyBar extends StatelessWidget {
     required this.items,
     required this.onItemSelected,
     this.curve = Curves.linear,
-  })  : assert(items.length >= 2 && items.length <= 5),
-        super(key: key);
+  })  : assert(items.length >= 2 && items.length <= 5);
 
   /// The selected item is index. Changing this property will change and animate
   /// the item being selected. Defaults to zero.
@@ -145,7 +144,6 @@ class _ItemWidget extends StatelessWidget {
   final Curve curve;
 
   const _ItemWidget({
-    Key? key,
     required this.iconSize,
     required this.isSelected,
     required this.item,
@@ -154,7 +152,7 @@ class _ItemWidget extends StatelessWidget {
     required this.animationDuration,
     required this.itemPadding,
     this.curve = Curves.linear,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -173,10 +171,10 @@ class _ItemWidget extends StatelessWidget {
         ),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           child: Container(
             width: isSelected ? 130 : 50,
-            padding: EdgeInsets.symmetric(horizontal: 8),
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -187,9 +185,7 @@ class _ItemWidget extends StatelessWidget {
                     size: iconSize,
                     color: isSelected
                         ? item.activeColor.withOpacity(1)
-                        : item.inactiveColor == null
-                        ? item.activeColor
-                        : item.inactiveColor,
+                        : item.inactiveColor ?? item.activeColor,
                   ),
                   child: item.icon,
                 ),
